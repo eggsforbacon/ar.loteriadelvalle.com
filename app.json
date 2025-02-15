@@ -1,9 +1,8 @@
 {
   "expo": {
     "name": "ar.loteria.marabunta.co",
-    "slug": "ar.loteria.marabunta.co",
+    "slug": "ar-loteria-marabunta-co",
     "version": "1.0.0",
-
     "scheme": "ar.loteria.marabunta.co",
     "web": {
       "bundler": "metro",
@@ -21,21 +20,19 @@
     ],
     "experiments": {
       "typedRoutes": true,
-
       "tsconfigPaths": true
     },
-
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-
     "userInterfaceStyle": "light",
-
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -43,7 +40,17 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
+      },
+      "package": "co.marabunta.loteria.ar"
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "8dae887e-40d1-4073-855d-e7f85740f294"
       }
-    }
+    },
+    "owner": "eggsforbacon"
   }
 }

@@ -1,6 +1,6 @@
 import { Stack, Link } from 'expo-router';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Platform, Text, View } from 'react-native';
 
 import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
@@ -11,7 +11,16 @@ export default function Home() {
       <Stack.Screen options={{ title: 'Home', headerShown: false }} />
       <Container>
         <View className={styles.container}>
-          <Text className={styles.title}>Lotería del Valle</Text>
+          <Text
+            style={{
+              fontFamily: Platform.select({
+                android: 'Poppins_900Black',
+                ios: 'Poppins-Black',
+              }),
+            }}
+            className={styles.title}>
+            Lotería del Valle
+          </Text>
           <Text className={styles.copy}>Bienvenido a la aplicación de la lotería del Valle</Text>
         </View>
         <Link href={{ pathname: '/onboarding' }} asChild>
@@ -25,6 +34,6 @@ export default function Home() {
 const styles = {
   container: `items-center flex-1 justify-start flex-col gap-4 pt-32`,
   separator: `h-[1px] my-7 w-4/5 bg-gray-200`,
-  title: `text-6xl font-bold text-center`,
+  title: `text-6xl text-center`,
   copy: `text-center text-lg`,
 };

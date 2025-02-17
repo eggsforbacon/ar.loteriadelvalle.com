@@ -16,6 +16,31 @@
         {
           "launchMode": "most-recent"
         }
+      ],
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/poppins/Poppins_100Thin.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_100Thin_Italic.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_200ExtraLight.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_200ExtraLight_Italic.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_300Light.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_300Light_Italic.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_400Regular.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_400Regular_Italic.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_500Medium.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_500Medium_Italic.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_600SemiBold.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_600SemiBold_Italic.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_700Bold.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_700Bold_Italic.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_800ExtraBold.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_800ExtraBold_Italic.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_900Black.ttf",
+            "node_modules/@expo-google-fonts/poppins/Poppins_900Black_Italic.ttf"
+          ]
+        }
       ]
     ],
     "experiments": {

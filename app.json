@@ -41,7 +41,8 @@
             "node_modules/@expo-google-fonts/poppins/Poppins_900Black_Italic.ttf"
           ]
         }
-      ]
+      ],
+      "@reactvision/react-viro"
     ],
     "experiments": {
       "typedRoutes": true,

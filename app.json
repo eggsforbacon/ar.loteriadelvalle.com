@@ -42,7 +42,8 @@
           ]
         }
       ],
-      "@reactvision/react-viro"
+      "@reactvision/react-viro",
+      "react-native-video"
     ],
     "experiments": {
       "typedRoutes": true,
@@ -54,7 +55,7 @@
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
-      "backgroundColor":  "#ffffff"
+      "backgroundColor": "#ffffff"
     },
     "assetBundlePatterns": [
       "**/*"

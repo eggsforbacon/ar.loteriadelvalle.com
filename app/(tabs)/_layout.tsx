@@ -1,9 +1,31 @@
+'use client';
+
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Tabs } from 'expo-router';
+import { useEffect } from 'react';
 
 export default function _layout() {
+  useEffect(() => {
+    try {
+      AsyncStorage.getItem('onboarded').then((value) => {
+        console.info(`'onboarded': ${value}`);
+        if (value === null || value !== 'true') {
+          console.info('No "onboarded" stored. Generating flag...');
+          AsyncStorage.setItem('onboarded', JSON.stringify(true)).then();
+          console.info('"onboarded" stored as true. Onboarding should skip next time');
+        } else {
+          console.info("'onboarded' stored as true.");
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      console.info(`Unable reading or setting onboarded value: ${error}`);
+    }
+  }, []);
+
   return (
     <Tabs>
       <Tabs.Screen

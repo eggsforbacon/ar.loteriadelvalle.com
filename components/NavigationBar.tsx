@@ -1,9 +1,9 @@
+import { Link } from 'expo-router';
 import React from 'react';
 import { Animated, View, useWindowDimensions } from 'react-native';
 
 import { Button } from '~/components/Button';
 import { OnboardingItemProps } from '~/components/OnboardingItem';
-import { Link } from 'expo-router';
 
 type NavigationProps = {
   data: OnboardingItemProps[];

@@ -1,11 +1,34 @@
-import { Stack, Link } from 'expo-router';
-import React from 'react';
+'use client';
+
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { Stack, Link, Href } from 'expo-router';
+import React, { useEffect } from 'react';
 import { Platform, Text, View } from 'react-native';
 
 import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
 
 export default function Home() {
+  const [redirectTo, setRedirectTo] = React.useState('/onboarding');
+
+  useEffect(() => {
+    try {
+      AsyncStorage.getItem('onboarded').then((value) => {
+        if (value !== null && value === 'true') {
+          console.info("Redirecting to '/feed'");
+          setRedirectTo('/feed');
+        } else {
+          console.info("Redirecting to '/onboarding'");
+          setRedirectTo('/onboarding');
+        }
+      });
+    } catch (error) {
+      console.error(error);
+      console.info("Redirecting to '/onboarding'");
+      setRedirectTo('/onboarding');
+    }
+  }, []);
+
   return (
     <>
       <Stack.Screen options={{ title: 'Home', headerShown: false }} />
@@ -32,7 +55,7 @@ export default function Home() {
             Bienvenido a la aplicación de la lotería del Valle
           </Text>
         </View>
-        <Link href={{ pathname: '/onboarding' }} asChild>
+        <Link href={{ pathname: redirectTo } as Href} asChild>
           <Button title="Comenzar" />
         </Link>
       </Container>

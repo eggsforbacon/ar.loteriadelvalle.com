@@ -27,11 +27,7 @@ export const OnboardingItem = ({ item }: OnboardingItemProps) => {
         width,
       }}
       className={styles.container}>
-      <Image
-        style={{objectFit: 'contain'}}
-        source={item.image}
-        className={styles.image}
-      />
+      <Image style={{ objectFit: 'contain' }} source={item.image} className={styles.image} />
       <View style={{ flex: 0.3 }}>
         <Text
           className={styles.title}

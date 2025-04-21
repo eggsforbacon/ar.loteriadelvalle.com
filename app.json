@@ -42,7 +42,6 @@
           ]
         }
       ],
-      "@reactvision/react-viro",
       "react-native-video"
     ],
     "experiments": {
@@ -61,23 +60,32 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "infoPlist": {
+        "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos",
+        "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos",
+        "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to use your camera",
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use your microphone"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "co.marabunta.loteria.ar"
+      "package": "co.marabunta.loteria.ar",
+      "googleServicesFile": "./google-services.json",
+      "permissions": []
     },
     "extra": {
+      "apiUrl": "https://0ab2-161-18-245-208.ngrok-free.app",
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "8dae887e-40d1-4073-855d-e7f85740f294"
+        "projectId": "50fe5bfa-fbfe-4f0a-973b-fdb5c44bc4e6"
       }
     },
-    "owner": "eggsforbacon"
+    "owner": "camiloamf"
   }
 }

@@ -42,7 +42,21 @@
           ]
         }
       ],
-      "react-native-video"
+      "@reactvision/react-viro",
+      "react-native-video",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "¿Permitir a $(PRODUCT_NAME) acceder a tu cámara?",
+          "recordAudioAndroid": false
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "¿Permitir a $(PRODUCT_NAME) acceder a fotos selectas de tu galería?"
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true,
@@ -65,8 +79,10 @@
         "NSPhotoLibraryUsageDescription": "Allow $(PRODUCT_NAME) to access your photos",
         "NSPhotoLibraryAddUsageDescription": "Allow $(PRODUCT_NAME) to save photos",
         "NSCameraUsageDescription": "Allow $(PRODUCT_NAME) to use your camera",
-        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use your microphone"
-      }
+        "NSMicrophoneUsageDescription": "Allow $(PRODUCT_NAME) to use your microphone",
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "bundleIdentifier": "co.marabunta.loteria.ar"
     },
     "android": {
       "adaptiveIcon": {
@@ -75,7 +91,10 @@
       },
       "package": "co.marabunta.loteria.ar",
       "googleServicesFile": "./google-services.json",
-      "permissions": []
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.RECORD_AUDIO"
+      ]
     },
     "extra": {
       "apiUrl": "https://0ab2-161-18-245-208.ngrok-free.app",
@@ -83,9 +102,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "50fe5bfa-fbfe-4f0a-973b-fdb5c44bc4e6"
+        "projectId": "8dae887e-40d1-4073-855d-e7f85740f294"
       }
     },
-    "owner": "camiloamf"
+    "owner": "marabunta"
   }
 }

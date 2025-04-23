@@ -1,10 +1,11 @@
 import '~/global.css';
+import Constants from 'expo-constants';
+import * as Notifications from 'expo-notifications';
+import { Stack, useRouter } from 'expo-router';
 import { useState, useEffect, useRef } from 'react';
 import { Platform, Alert, useColorScheme } from 'react-native';
-import { Stack, useRouter } from 'expo-router';
 import { PaperProvider } from 'react-native-paper';
-import * as Notifications from 'expo-notifications';
-import Constants from 'expo-constants';
+
 import { lightTheme, darkTheme } from './theme';
 
 Notifications.setNotificationHandler({

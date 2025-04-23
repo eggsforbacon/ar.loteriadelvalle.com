@@ -1,5 +1,5 @@
 import { useIsFocused } from '@react-navigation/native';
-
+import { ViroARSceneNavigator } from '@reactvision/react-viro';
 import { useEffect, useRef, useState } from 'react';
 import { Text, View } from 'react-native';
 
@@ -27,14 +27,14 @@ export default function Scan() {
       <Text className={styles.title}>My AR Experience</Text>
 
       <View className={styles.viroContainer}>
-        {/* {showAR && (
+        {showAR && (
           <ViroARSceneNavigator
             ref={(ref) => (arNavigatorRef = ref)}
             initialScene={{ scene: ScanViewARScene }}
             style={{ flex: 1 }}
             autofocus
           />
-        )} */}
+        )}
       </View>
 
       <Text className={styles.description}>Explore the AR scene above!</Text>

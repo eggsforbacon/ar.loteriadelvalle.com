@@ -6,6 +6,7 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { Tabs } from 'expo-router';
 import { useEffect } from 'react';
+import { requestCameraPermissionsAsync } from "expo-image-picker";
 
 export default function _layout() {
   useEffect(() => {
@@ -24,6 +25,14 @@ export default function _layout() {
       console.error(error);
       console.info(`Unable reading or setting onboarded value: ${error}`);
     }
+  }, []);
+
+  useEffect(() => {
+    requestCameraPermissionsAsync().then((res) => {
+      if (res.granted) {
+        console.info('Camera permission granted');
+      }
+    });
   }, []);
 
   return (

@@ -4,9 +4,9 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { requestCameraPermissionsAsync } from 'expo-image-picker';
 import { Tabs } from 'expo-router';
 import { useEffect } from 'react';
-import { requestCameraPermissionsAsync } from "expo-image-picker";
 
 export default function _layout() {
   useEffect(() => {

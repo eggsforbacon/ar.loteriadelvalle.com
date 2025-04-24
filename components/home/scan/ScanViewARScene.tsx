@@ -14,7 +14,7 @@ export const ScanViewARScene = () => {
           <ViroText
             text="Hello World!"
             position={[0, 0, -1]}
-            className={`text-4xl text-primary transition-all duration-200 ease-in-out ${shown ? 'opacity-100' : 'opacity-0'}`}
+            className={`text-primary-600 text-4xl transition-all duration-200 ease-in-out ${shown ? 'opacity-100' : 'opacity-0'}`}
           />
         </ViroARImageMarker>
       </ViroARScene>

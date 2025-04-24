@@ -1,9 +1,11 @@
 import '~/global.css';
+import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
 import Constants from 'expo-constants';
 import * as Notifications from 'expo-notifications';
 import { Stack, useRouter } from 'expo-router';
 import { useState, useEffect, useRef } from 'react';
 import { Platform, Alert, useColorScheme } from 'react-native';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { PaperProvider } from 'react-native-paper';
 
 import { lightTheme, darkTheme } from './theme';
@@ -65,11 +67,11 @@ export default function Layout() {
 
     registerForPushNotificationsAsync();
 
-    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+    notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
       console.log('Notificación recibida:', notification);
     });
 
-    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+    responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
       console.log('Respuesta a notificación:', response);
       router.push('/(tabs)/live');
     });
@@ -85,10 +87,18 @@ export default function Layout() {
   }, []);
 
   return (
-    <PaperProvider theme={theme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-      </Stack>
-    </PaperProvider>
+    <GestureHandlerRootView>
+      <BottomSheetModalProvider>
+        <PaperProvider theme={theme}>
+          <Stack>
+            <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+            <Stack.Screen
+              name="(wallet)/camera"
+              options={{ headerShown: false, navigationBarHidden: true, statusBarHidden: true }}
+            />
+          </Stack>
+        </PaperProvider>
+      </BottomSheetModalProvider>
+    </GestureHandlerRootView>
   );
 }

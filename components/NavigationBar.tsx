@@ -59,5 +59,5 @@ const styles = {
   pagination: `flex-row py-6`,
   previous: `flex-1`,
   continue: `flex-1`,
-  dot: `h-2.5 rounded-xl bg-primary mx-1`,
+  dot: `h-2.5 rounded-xl bg-primary-600 mx-1`,
 };

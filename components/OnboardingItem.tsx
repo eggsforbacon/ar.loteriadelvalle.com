@@ -57,6 +57,6 @@ export const OnboardingItem = ({ item }: OnboardingItemProps) => {
 const styles = {
   container: `items-center flex-1 justify-center`,
   image: `flex-[0.7] justify-center w-[80vw]`,
-  title: `text-2xl mb-3 text-center text-secondary`,
+  title: `text-2xl mb-3 text-center text-primary-800`,
   description: `px-16 text-center`,
 };

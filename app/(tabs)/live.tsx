@@ -1,126 +1,52 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
-import { Text, Button } from 'react-native-paper';
-import Video from 'react-native-video';
-import { useIsFocused } from '@react-navigation/native';
-import Constants from 'expo-constants';
+import React, { useEffect } from 'react';
+import { StyleSheet, ScrollView } from 'react-native';
+import { useNavigation, useLocalSearchParams } from 'expo-router';
+import { useVideoData } from '~/hooks/useVideoData';
+import { Ticket } from '~/types/ticket';
+import VideoSection from '~/components/home/live/VideoSection';
+import TicketFormSection from '~/components/home/live/TicketFormSection';
+import ResultsTable from '~/components/home/live/ResultsTable';
+import LiveTitle from '~/components/home/live/LiveTitle';
 
 export default function Live() {
-  const [videoData, setVideoData] = useState<{
-    videoUrl: string;
-    isLive: boolean;
-    events?: { name: string; timestamp: number }[];
-  } | null>(null);
-
-  const [isPaused, setIsPaused] = useState(false);
-  const videoRef = useRef<any>(null);
-  const isFocused = useIsFocused();
+  const { videoData, isLoading, refresh } = useVideoData();
+  const navigation = useNavigation();
+  const { refresh: refreshParam } = useLocalSearchParams<{ refresh?: string }>();
 
   useEffect(() => {
-    if (isFocused) {
-      setIsPaused(false);
-    } else {
-      setIsPaused(true);
+    if (refreshParam) {
+      refresh();
     }
-  }, [isFocused]);
+  }, [refreshParam, refresh]);
 
   useEffect(() => {
-    const fetchVideoData = async () => {
-      try {
-        const apiUrl = Constants.expoConfig?.extra?.apiUrl;
-        const response = await fetch(`${apiUrl}/get-current-video`);
-        const data = await response.json();
-        setVideoData(data);
-      } catch (error) {
-        console.error('Error al obtener datos del video:', error);
-      }
-    };
-    fetchVideoData();
-  }, []);
-
-  const seekToTime = (timestamp: number) => {
-    if (videoRef.current) {
-      videoRef.current.seek(timestamp);
+    if (!isLoading && videoData) {
+      navigation.setOptions({
+        headerTitle: () => <LiveTitle isLive={videoData.isLive} />,
+      });
     }
-  };
+  }, [isLoading, videoData, navigation]);
 
-  if (!videoData) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" />
-        <Text variant="bodyLarge" style={styles.loadingText}>
-          Cargando video...
-        </Text>
-      </View>
-    );
+  if (isLoading) {
+    return <VideoSection.Loading />;
   }
 
+  const handleTicketSubmit = (ticket: Ticket) => {
+    console.log('Consultando:', ticket);
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.videoContainer}>
-        <Video
-          ref={videoRef}
-          source={{ uri: videoData.videoUrl }}
-          style={styles.video}
-          controls={true}
-          resizeMode="contain"
-          paused={isPaused}
-        />
-      </View>
-      {!videoData.isLive && videoData.events && (
-        <View style={styles.eventsContainer}>
-          <Text variant="titleMedium" style={styles.eventsTitle}>
-            Eventos
-          </Text>
-          {videoData.events.map((event) => (
-            <Button
-              key={event.name}
-              mode="contained"
-              onPress={() => seekToTime(event.timestamp)}
-              style={styles.eventButton}
-              labelStyle={styles.buttonLabel}
-            >
-              {event.name}
-            </Button>
-          ))}
-        </View>
-      )}
-    </View>
+    <ScrollView style={styles.container}>
+      <VideoSection videoData={videoData} />
+      <TicketFormSection onSubmit={handleTicketSubmit} />
+      <ResultsTable />
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    marginTop: 16,
-  },
   container: {
     flex: 1,
-  },
-  videoContainer: {
-    width: '100%',
-    height: 320,
-    borderRadius: 20,
-    backgroundColor: '#bb0014',
-  },
-  video: {
-    width: '100%',
-    height: '100%',
-  },
-  eventsContainer: {
-    paddingHorizontal: 16,
-  },
-  eventsTitle: {
-    marginBottom: 8,
-  },
-  eventButton: {
-    marginVertical: 8,
-  },
-  buttonLabel: {
-    fontSize: 16,
+    backgroundColor: '#FFFFFF',
   },
 });

@@ -70,7 +70,11 @@ export default function Layout() {
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
       console.log('Respuesta a notificación:', response);
-      router.push('/(tabs)/live');
+      const refreshParam = Date.now();
+      router.push({
+        pathname: '/(tabs)/live',
+        params: { refresh: refreshParam },
+      });
     });
 
     return () => {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { View, StyleSheet } from 'react-native';
-import { DataTable, Button, Text } from 'react-native-paper';
+import { View, Text } from 'react-native';
+import { DataTable, Button } from 'react-native-paper';
 import { mockData } from '~/data/lottery';
 
 const ResultsTable = () => {
@@ -12,11 +12,11 @@ const ResultsTable = () => {
   const totalPages = Math.ceil(mockData.length / itemsPerPage);
 
   return (
-    <View style={styles.container}>
-      <Text variant="headlineSmall" style={styles.title}>
+    <View className="px-4 pt-6">
+      <Text className="text-2xl font-bold text-brand-dark-red text-center mb-4">
         Histórico de resultados
       </Text>
-      <DataTable>
+      <DataTable className='gap-2'>
         <DataTable.Header>
           <DataTable.Title>Sorteo</DataTable.Title>
           <DataTable.Title>Fecha</DataTable.Title>
@@ -26,7 +26,7 @@ const ResultsTable = () => {
         {mockData.slice(from, to).map((row) => (
           <React.Fragment key={row.id}>
             <DataTable.Row>
-              <DataTable.Cell>{row.sorteo}</DataTable.Cell>
+              <DataTable.Cell>{row.draw}</DataTable.Cell>
               <DataTable.Cell>{row.date}</DataTable.Cell>
               <DataTable.Cell numeric>
                 <Button
@@ -41,18 +41,18 @@ const ResultsTable = () => {
             </DataTable.Row>
 
             {expandedId === row.id && (
-              <View style={styles.subTable}>
-                <DataTable>
+              <View className="rounded-[10px] bg-[#f5f5f5]">
+                <DataTable className='gap-2'>
                   <DataTable.Header>
                     <DataTable.Title style={{ flex: 1 }}>Número</DataTable.Title>
                     <DataTable.Title style={{ flex: 1 }}>Serie</DataTable.Title>
                     <DataTable.Title style={{ flex: 2 }}>Premio</DataTable.Title>
                   </DataTable.Header>
-                  {row.premios.map((premio, idx) => (
+                  {row.prizes.map((p, idx) => (
                     <DataTable.Row key={idx}>
-                      <DataTable.Cell style={{ flex: 1 }}>{premio.numero}</DataTable.Cell>
-                      <DataTable.Cell style={{ flex: 1 }}>{premio.serie}</DataTable.Cell>
-                      <DataTable.Cell style={{ flex: 2 }}>{premio.premio}</DataTable.Cell>
+                      <DataTable.Cell style={{ flex: 1 }}>{p.number}</DataTable.Cell>
+                      <DataTable.Cell style={{ flex: 1 }}>{p.series}</DataTable.Cell>
+                      <DataTable.Cell style={{ flex: 2 }}>{p.prize}</DataTable.Cell>
                     </DataTable.Row>
                   ))}
                 </DataTable>
@@ -62,7 +62,7 @@ const ResultsTable = () => {
         ))}
 
         <DataTable.Pagination
-          style={styles.pagination}
+          className="self-center"
           page={page}
           numberOfPages={totalPages}
           onPageChange={(newPage) => setPage(newPage)}
@@ -73,25 +73,5 @@ const ResultsTable = () => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 16,
-    paddingTop: 24,
-  },
-  title: {
-    marginBottom: 8,
-    textAlign: 'center',
-    color: '#BB0014',
-    fontWeight: 'bold',
-  },
-  subTable: {
-    borderRadius: 10,
-    backgroundColor: '#f5f5f5',
-  },
-  pagination: {
-    margin: 'auto'
-  }
-});
 
 export default ResultsTable;

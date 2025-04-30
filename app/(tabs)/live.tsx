@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useNavigation, useLocalSearchParams } from 'expo-router';
 import { useVideoData } from '~/hooks/useVideoData';
 import { Ticket } from '~/types/ticket';
@@ -36,17 +36,10 @@ export default function Live() {
   };
 
   return (
-    <ScrollView style={styles.container}>
+    <ScrollView contentContainerClassName="bg-white gap-8" showsVerticalScrollIndicator={false}>
       <VideoSection videoData={videoData} />
       <TicketFormSection onSubmit={handleTicketSubmit} />
       <ResultsTable />
     </ScrollView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-});

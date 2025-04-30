@@ -1,8 +1,7 @@
 import React from 'react';
-import { View, StyleSheet, Alert } from 'react-native';
-import { Text, Button } from 'react-native-paper';
+import { View, Alert, Text } from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { TicketInput } from '~/components/TicketInput';
 import { Ticket } from '~/types/ticket';
 import { useTicketForm } from '~/hooks/useTicketForm';
 import { mockData } from '~/data/lottery';
@@ -30,51 +29,71 @@ export default function TicketFormSection({ onSubmit }: Props) {
   };
 
   return (
-    <View style={styles.container}>
-      <Text variant="headlineSmall" style={styles.title}>
+    <View className="px-4 pt-2">
+      <Text className="text-2xl font-bold text-brand-dark-red text-center mb-6">
         Consulta si tu número es ganador
       </Text>
 
-      <View style={styles.row}>
-        <TicketInput
-          label="Fecha"
-          iconName="calendar"
-          value={ticket.date ? ticket.date.toLocaleDateString() : ''}
-          onFocus={() => setShowDatePicker(true)}
-        />
-        <TicketInput
-          label="Sorteo"
-          iconName="ticket-outline"
-          keyboardType="numeric"
-          maxLength={4}
-          value={ticket.sorteo}
-          onChangeText={text =>
-            handleChange('sorteo', text.replace(/[^0-9]/g, ''))
-          }
-        />
+      <View className="flex-row justify-between mb-4">
+        <View className="flex-1 mr-2">
+          <TextInput
+            mode="outlined"
+            label="Fecha"
+            value={ticket.date ? ticket.date.toLocaleDateString() : ''}
+            onFocus={() => setShowDatePicker(true)}
+            left={<TextInput.Icon icon="calendar" color="#BB0014" />}
+            className="text-base"
+            outlineStyle={{ borderColor: '#BB0014', borderWidth: 1, borderRadius: 8 }}
+          />
+        </View>
+        <View className="flex-1 ml-2">
+          <TextInput
+            mode="outlined"
+            label="Sorteo"
+            keyboardType="numeric"
+            maxLength={4}
+            value={ticket.draw}
+            onChangeText={(text) =>
+              handleChange('draw', text.replace(/[^0-9]/g, ''))
+            }
+            left={<TextInput.Icon icon="ticket-outline" color="#BB0014" />}
+            className="text-base"
+            outlineStyle={{ borderColor: '#BB0014', borderWidth: 1, borderRadius: 8 }}
+          />
+        </View>
       </View>
 
-      <View style={styles.row}>
-        <TicketInput
-          label="Número"
-          iconName="numeric"
-          keyboardType="numeric"
-          maxLength={4}
-          value={ticket.numero}
-          onChangeText={text =>
-            handleChange('numero', text.replace(/[^0-9]/g, ''))
-          }
-        />
-        <TicketInput
-          label="Serie"
-          iconName="barcode"
-          keyboardType="numeric"
-          maxLength={3}
-          value={ticket.serie}
-          onChangeText={text =>
-            handleChange('serie', text.replace(/[^0-9]/g, ''))
-          }
-        />
+      <View className="flex-row justify-between mb-4">
+        <View className="flex-1 mr-2">
+          <TextInput
+            mode="outlined"
+            label="Número"
+            keyboardType="numeric"
+            maxLength={4}
+            value={ticket.number}
+            onChangeText={(text) =>
+              handleChange('number', text.replace(/[^0-9]/g, ''))
+            }
+            left={<TextInput.Icon icon="numeric" color="#BB0014" />}
+            className="text-base"
+            outlineStyle={{ borderColor: '#BB0014', borderWidth: 1, borderRadius: 8 }}
+          />
+        </View>
+        <View className="flex-1 ml-2">
+          <TextInput
+            mode="outlined"
+            label="Serie"
+            keyboardType="numeric"
+            maxLength={3}
+            value={ticket.series}
+            onChangeText={(text) =>
+              handleChange('series', text.replace(/[^0-9]/g, ''))
+            }
+            left={<TextInput.Icon icon="barcode" color="#BB0014" />}
+            className="text-base"
+            outlineStyle={{ borderColor: '#BB0014', borderWidth: 1, borderRadius: 8 }}
+          />
+        </View>
       </View>
 
       {showDatePicker && (
@@ -87,9 +106,9 @@ export default function TicketFormSection({ onSubmit }: Props) {
             if (date) {
               handleDatePicked(date);
               const key = formatDateKey(date);
-              const found = mockData.find(r => r.date === key);
+              const found = mockData.find((r) => r.date === key);
               if (found) {
-                handleChange('sorteo', found.sorteo);
+                handleChange('draw', found.draw);
               }
             }
           }}
@@ -99,36 +118,11 @@ export default function TicketFormSection({ onSubmit }: Props) {
       <Button
         mode="contained"
         onPress={onConsult}
-        contentStyle={styles.buttonContent}
-        style={styles.consultButton}
+        className="bg-brand-red mt-2 py-1"
+        style={{borderRadius:8}}
       >
         Consultar
       </Button>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingHorizontal: 16,
-    paddingTop: 8,
-  },
-  title: {
-    marginBottom: 24,
-    textAlign: 'center',
-    color: '#BB0014',
-    fontWeight: 'bold',
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 16,
-  },
-  buttonContent: {
-    height: 48,
-  },
-  consultButton: {
-    borderRadius: 8,
-    marginTop: 8,
-  },
-});

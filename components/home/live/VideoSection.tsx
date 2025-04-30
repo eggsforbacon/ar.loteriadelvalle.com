@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ActivityIndicator, StyleSheet } from 'react-native';
+import { View, ActivityIndicator } from 'react-native';
 import { Text } from 'react-native-paper';
 import Video from 'react-native-video';
 import { useIsFocused } from '@react-navigation/native';
@@ -27,12 +27,13 @@ const VideoSection = ({ videoData }: VideoSectionProps) => {
   }
 
   return (
-    <View style={styles.videoWrapper}>
-      <View style={styles.videoContainer}>
+    <View className="p-4 bg-white">
+      <View className="w-full aspect-[16/9] rounded-xl overflow-hidden bg-white">
         <Video
           ref={videoRef}
           source={{ uri: videoData.videoUrl }}
-          style={styles.video}
+          className="w-full h-full"
+          style={{ width: '100%', height: '100%' }}
           controls={true}
           resizeMode="contain"
           paused={isPaused}
@@ -43,37 +44,12 @@ const VideoSection = ({ videoData }: VideoSectionProps) => {
 };
 
 VideoSection.Loading = () => (
-  <View style={styles.loadingContainer}>
+  <View className="flex-1 justify-center items-center">
     <ActivityIndicator size="large" />
-    <Text variant="bodyLarge" style={styles.loadingText}>
+    <Text variant="bodyLarge" className="mt-4">
       Cargando video...
     </Text>
   </View>
 );
-
-const styles = StyleSheet.create({
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  loadingText: {
-    marginTop: 16,
-  },
-  videoWrapper: {
-    padding: 16,
-    backgroundColor: '#FFFFFF',
-  },
-  videoContainer: {
-    width: '100%',
-    aspectRatio: 16 / 9,
-    borderRadius: 12,
-    overflow: 'hidden',
-    backgroundColor: '#FFFFFF',
-  },
-  video: {
-    ...StyleSheet.absoluteFillObject,
-  },
-});
 
 export default VideoSection;

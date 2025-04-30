@@ -7,6 +7,29 @@ import { Platform, Text, View } from 'react-native';
 
 import { Button } from '~/components/Button';
 import { Container } from '~/components/Container';
+import { LogBox } from 'react-native';
+
+LogBox.ignoreLogs([
+  'TRenderEngineProvider: Support for defaultProps',
+  'MemoizedTNodeRenderer: Support for defaultProps',
+  'TNodeChildrenRenderer: Support for defaultProps',
+  'IMGElement: Support for defaultProps',
+]);
+
+const originalConsoleError = console.error;
+console.error = (...args: any[]) => {
+  const msg = args[0]?.toString?.() || '';
+  if (
+    msg.includes('Support for defaultProps') ||
+    msg.includes('TRenderEngineProvider') ||
+    msg.includes('MemoizedTNodeRenderer') ||
+    msg.includes('TNodeChildrenRenderer') ||
+    msg.includes('IMGElement')
+  ) {
+    return;
+  }
+  originalConsoleError(...args);
+};
 
 export default function Home() {
   const [redirectTo, setRedirectTo] = React.useState('/onboarding');

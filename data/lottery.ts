@@ -1,70 +1,70 @@
-export interface Premio {
-  numero: string;
-  serie: string;
-  premio: string;
+export interface Prize {
+  number: string;
+  series: string;
+  prize: string;
 }
 
-export interface Sorteo {
+export interface Draw {
   id: number;
-  sorteo: string;
+  draw: string;
   date: string;
-  premios: Premio[];
+  prizes: Prize[];
 }
 
-export const mockData: Sorteo[] = [
+export const mockData: Draw[] = [
   {
     id: 1,
-    sorteo: '1234',
+    draw: '1234',
     date: '2025-04-23',
-    premios: [
-      { numero: '1508', serie: '162', premio: 'Premio Mayor' },
-      { numero: '5678', serie: '001', premio: 'Premio de $500,000,000' },
-      { numero: '1234', serie: '002', premio: 'Premio de $100,000,000' },
+    prizes: [
+      { number: '1508', series: '162', prize: 'Premio Mayor' },
+      { number: '5678', series: '001', prize: 'Premio de $500,000,000' },
+      { number: '1234', series: '002', prize: 'Premio de $100,000,000' },
     ],
   },
   {
     id: 2,
-    sorteo: '1235',
+    draw: '1235',
     date: '2025-04-16',
-    premios: [
-      { numero: '5679', serie: '002', premio: 'Premio Mayor' },
-      { numero: '9876', serie: '003', premio: 'Tercer Premio' },
+    prizes: [
+      { number: '5679', series: '002', prize: 'Premio Mayor' },
+      { number: '9876', series: '003', prize: 'Tercer Premio' },
     ],
   },
   {
     id: 3,
-    sorteo: '1236',
+    draw: '1236',
     date: '2025-04-09',
-    premios: [
-      { numero: '5679', serie: '002', premio: 'Premio Mayor' },
-      { numero: '9876', serie: '003', premio: 'Tercer Premio' },
+    prizes: [
+      { number: '5679', series: '002', prize: 'Premio Mayor' },
+      { number: '9876', series: '003', prize: 'Tercer Premio' },
     ],
   },
   {
     id: 4,
-    sorteo: '1237',
+    draw: '1237',
     date: '2025-04-02',
-    premios: [
-      { numero: '5679', serie: '002', premio: 'Premio Mayor' },
-      { numero: '9876', serie: '003', premio: 'Tercer Premio' },
+    prizes: [
+      { number: '5679', series: '002', prize: 'Premio Mayor' },
+      { number: '9876', series: '003', prize: 'Tercer Premio' },
     ],
   },
   {
     id: 5,
-    sorteo: '1238',
+    draw: '1238',
     date: '2025-03-26',
-    premios: [
-      { numero: '5679', serie: '002', premio: 'Premio Mayor' },
-      { numero: '9876', serie: '003', premio: 'Tercer Premio' },
+    prizes: [
+      { number: '5679', series: '002', prize: 'Premio Mayor' },
+      { number: '9876', series: '003', prize: 'Tercer Premio' },
     ],
   },
   {
     id: 6,
-    sorteo: '1239',
+    draw: '1239',
     date: '2025-03-19',
-    premios: [
-      { numero: '5679', serie: '002', premio: 'Premio Mayor' },
-      { numero: '9876', serie: '003', premio: 'Tercer Premio' },
+    prizes: [
+      { number: '5679', series: '002', prize: 'Premio Mayor' },
+      { number: '9876', series: '003', prize: 'Tercer Premio' },
     ],
   },
 ];

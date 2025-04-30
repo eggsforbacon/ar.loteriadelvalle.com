@@ -91,6 +91,7 @@ export default function Layout() {
     <PaperProvider theme={theme}>
       <Stack>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        <Stack.Screen name="news/[id]" options={{headerShown: false,}}/>
       </Stack>
     </PaperProvider>
   );

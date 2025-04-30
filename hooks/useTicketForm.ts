@@ -4,9 +4,9 @@ import type { Ticket } from '~/types/ticket';
 export function useTicketForm() {
   const [ticket, setTicket] = useState<Ticket>({
     date: null,
-    sorteo: '',
-    numero: '',
-    serie: '',
+    draw: '',
+    number: '',
+    series: '',
   });
   const [showDatePicker, setShowDatePicker] = useState(false);
 

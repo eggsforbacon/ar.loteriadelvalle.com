@@ -21,36 +21,24 @@ export function TicketInput({
   const theme = useTheme();
 
   return (
-    <View style={[styles.ticketContainer, { borderColor: theme.colors.primary }]}>
+    <View
+      className="flex-1 mx-1 border border-brand-red rounded-lg bg-white relative overflow-visible"
+      style={{ borderWidth: BORDER_WIDTH }}
+    >
       <View
-        style={[
-          styles.cutout,
-          styles.leftCutout,
-          {
-            backgroundColor: theme.colors.background,
-            borderRightWidth: BORDER_WIDTH,
-            borderColor: theme.colors.primary,
-          },
-        ]}
+        className="absolute w-5 h-5 top-1/2 -mt-2.5 bg-white border-r border-brand-red rounded-tr-full rounded-br-full z-10"
+        style={{ left: -RADIUS, borderRightWidth: BORDER_WIDTH }}
       />
-
       <View
-        style={[
-          styles.cutout,
-          styles.rightCutout,
-          {
-            backgroundColor: theme.colors.background,
-            borderLeftWidth: BORDER_WIDTH,
-            borderColor: theme.colors.primary,
-          },
-        ]}
+        className="absolute w-5 h-5 top-1/2 -mt-2.5 bg-white border-l border-brand-red rounded-tl-full rounded-bl-full z-10"
+        style={{ right: -RADIUS, borderLeftWidth: BORDER_WIDTH }}
       />
-
       <TextInput
         mode="outlined"
         outlineColor="transparent"
         activeOutlineColor="transparent"
-        style={[styles.input, style]}
+        className="bg-transparent px-0 z-0"
+        style={style}
         left={<TextInput.Icon icon={iconName} />}
         {...rest}
       />
@@ -59,15 +47,6 @@ export function TicketInput({
 }
 
 const styles = StyleSheet.create({
-  ticketContainer: {
-    flex: 1,
-    marginHorizontal: 4,
-    borderWidth: BORDER_WIDTH,
-    borderRadius: 8,
-    overflow: 'visible',
-    position: 'relative',
-    backgroundColor: 'white',
-  },
   cutout: {
     position: 'absolute',
     width: DIAMETER,
@@ -85,10 +64,5 @@ const styles = StyleSheet.create({
     right: -RADIUS,
     borderTopLeftRadius: RADIUS,
     borderBottomLeftRadius: RADIUS,
-  },
-  input: {
-    backgroundColor: 'transparent',
-    paddingHorizontal: 0,
-    zIndex: 0,
   },
 });

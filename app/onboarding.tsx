@@ -1,6 +1,6 @@
-import { Stack } from 'expo-router';
+import { Stack } from "expo-router";
 
-import { Onboarding as OnboardingContent } from '../components/Onboarding';
+import { Onboarding as OnboardingContent } from "../components/Onboarding";
 
 export default function Onboarding() {
   return (

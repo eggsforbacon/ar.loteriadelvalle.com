@@ -1,10 +1,10 @@
-import React, { useState, useRef } from 'react';
-import { View, FlatList, Animated } from 'react-native';
+import React, { useState, useRef } from "react";
+import { View, FlatList, Animated } from "react-native";
 
-import { OnboardingItem } from './OnboardingItem';
+import { OnboardingItem } from "./OnboardingItem";
 
-import { NavigationBar } from '~/components/NavigationBar';
-import onboarding from '~/data/onboarding';
+import { NavigationBar } from "~/components/NavigationBar";
+import onboarding from "~/data/onboarding";
 
 export const Onboarding = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -14,14 +14,14 @@ export const Onboarding = () => {
     setCurrentIndex(viewableItems[0].index);
   }).current;
   const viewConfig = useRef({ viewAreaCoveragePercentThreshold: 50 }).current;
-  const scrollTo = (mode: 'next' | 'prev') => {
+  const scrollTo = (mode: "next" | "prev") => {
     switch (mode) {
-      case 'next':
+      case "next":
         if (currentIndex < onboarding.length - 1) {
           slidesRef.current!.scrollToIndex({ index: currentIndex + 1 });
         }
         break;
-      case 'prev':
+      case "prev":
         if (currentIndex > 0) {
           slidesRef.current!.scrollToIndex({ index: currentIndex - 1 });
         }

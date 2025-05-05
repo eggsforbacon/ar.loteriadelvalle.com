@@ -1,14 +1,14 @@
-import '~/global.css';
-import { BottomSheetModalProvider } from '@gorhom/bottom-sheet';
-import Constants from 'expo-constants';
-import * as Notifications from 'expo-notifications';
-import { Stack, useRouter } from 'expo-router';
-import { useState, useEffect, useRef } from 'react';
-import { Platform, Alert, useColorScheme } from 'react-native';
-import { GestureHandlerRootView } from 'react-native-gesture-handler';
-import { PaperProvider } from 'react-native-paper';
+import "~/global.css";
+import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import Constants from "expo-constants";
+import * as Notifications from "expo-notifications";
+import { Stack, useRouter } from "expo-router";
+import { useState, useEffect, useRef } from "react";
+import { Platform, Alert, useColorScheme } from "react-native";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
+import { PaperProvider } from "react-native-paper";
 
-import { lightTheme, darkTheme } from './theme';
+import { lightTheme, darkTheme } from "./theme";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,7 +20,7 @@ Notifications.setNotificationHandler({
 
 export default function Layout() {
   const colorScheme = useColorScheme();
-  const theme = colorScheme === 'dark' ? darkTheme : lightTheme;
+  const theme = colorScheme === "dark" ? darkTheme : lightTheme;
   const [expoPushToken, setExpoPushToken] = useState<string | null>(null);
   const notificationListener = useRef<any>();
   const responseListener = useRef<any>();
@@ -31,36 +31,36 @@ export default function Layout() {
       try {
         const { status: existingStatus } = await Notifications.getPermissionsAsync();
         let finalStatus = existingStatus;
-        if (existingStatus !== 'granted') {
+        if (existingStatus !== "granted") {
           const { status } = await Notifications.requestPermissionsAsync();
           finalStatus = status;
         }
-        if (finalStatus !== 'granted') {
-          Alert.alert('Permisos de notificación no concedidos');
+        if (finalStatus !== "granted") {
+          Alert.alert("Permisos de notificación no concedidos");
           return;
         }
 
         const tokenData = await Notifications.getExpoPushTokenAsync();
         const token = tokenData.data;
-        console.log('Expo Push Token:', token);
+        console.log("Expo Push Token:", token);
         setExpoPushToken(token);
 
         const apiUrl = Constants.expoConfig?.extra?.apiUrl;
         await fetch(`${apiUrl}/register-token`, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ token }),
         });
       } catch (error) {
-        console.error('Error registrando push notifications:', error);
+        console.error("Error registrando push notifications:", error);
       }
 
-      if (Platform.OS === 'android') {
-        await Notifications.setNotificationChannelAsync('default', {
-          name: 'default',
+      if (Platform.OS === "android") {
+        await Notifications.setNotificationChannelAsync("default", {
+          name: "default",
           importance: Notifications.AndroidImportance.MAX,
           vibrationPattern: [0, 250, 250, 250],
-          lightColor: '#FF231F7C',
+          lightColor: "#FF231F7C",
         });
       }
     }
@@ -68,12 +68,12 @@ export default function Layout() {
     registerForPushNotificationsAsync();
 
     notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
-      console.log('Notificación recibida:', notification);
+      console.log("Notificación recibida:", notification);
     });
 
     responseListener.current = Notifications.addNotificationResponseReceivedListener((response) => {
-      console.log('Respuesta a notificación:', response);
-      router.push('/(tabs)/live');
+      console.log("Respuesta a notificación:", response);
+      router.push("/(tabs)/live");
     });
 
     return () => {
@@ -95,6 +95,17 @@ export default function Layout() {
             <Stack.Screen
               name="(wallet)/camera"
               options={{ headerShown: false, navigationBarHidden: true, statusBarHidden: true }}
+            />
+            <Stack.Screen
+              name="(wallet)/new-ticket"
+              options={{ headerTitle: "Nuevo billete", headerShadowVisible: false }}
+            />
+            <Stack.Screen
+              name="(wallet)/[slug]"
+              options={{
+                headerTitle: "",
+                headerShadowVisible: false,
+              }}
             />
           </Stack>
         </PaperProvider>

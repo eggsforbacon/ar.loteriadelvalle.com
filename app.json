@@ -56,7 +56,8 @@
         {
           "photosPermission": "¿Permitir a $(PRODUCT_NAME) acceder a fotos selectas de tu galería?"
         }
-      ]
+      ],
+      "expo-asset"
     ],
     "experiments": {
       "typedRoutes": true,

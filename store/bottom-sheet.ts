@@ -1,6 +1,6 @@
-import { BottomSheetModal } from '@gorhom/bottom-sheet';
-import React, { ReactNode } from 'react';
-import { create } from 'zustand';
+import { BottomSheetModal } from "@gorhom/bottom-sheet";
+import React, { ReactNode } from "react";
+import { create } from "zustand";
 
 export interface BottomSheetModalState {
   modal: boolean;

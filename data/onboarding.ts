@@ -2,33 +2,33 @@ import { OnboardingItemProps } from "~/components/OnboardingItem";
 
 export default [
   {
-    id: '1',
-    title: 'Detección de fraude asistida',
+    id: "1",
+    title: "Detección de fraude asistida",
     description:
-      'Te brindamos asistencia interactiva con Realidad Aumentada para conocer cómo detectar billetes fraudulentos.',
-    image: require('./../assets/images/onboarding/1.png'),
+      "Te brindamos asistencia interactiva con Realidad Aumentada para conocer cómo detectar billetes fraudulentos.",
+    image: require("./../assets/images/onboarding/1.png"),
   },
   {
-    id: '2',
-    title: 'Tus billetes en tu celular',
+    id: "2",
+    title: "Tus billetes en tu celular",
     description:
-      '¿Estás en la calle y tu billete en casa? Revisa tus billetes comprados desde la app, ¡con tranquilidad!*',
-    image: require('./../assets/images/onboarding/2.png'),
+      "¿Estás en la calle y tu billete en casa? Revisa tus billetes comprados desde la app, ¡con tranquilidad!*",
+    image: require("./../assets/images/onboarding/2.png"),
     liability:
-      '*La presentación de billetes digitales no es una forma válida para reclamar tu premio. Para más información, visita ',
-    liabilityUrl: 'https://benevalle.gov.co/preguntas-frecuentes',
+      "*La presentación de billetes digitales no es una forma válida para reclamar tu premio. Para más información, visita ",
+    liabilityUrl: "https://benevalle.gov.co/preguntas-frecuentes",
   },
   {
-    id: '3',
-    title: 'Resultados en Vivo',
+    id: "3",
+    title: "Resultados en Vivo",
     description:
-      'Disfruta de nuestra transmisión en vivo, ahora desde cualquier lugar. ¡Revive los momentos destacados!',
-    image: require('./../assets/images/onboarding/3.png'),
+      "Disfruta de nuestra transmisión en vivo, ahora desde cualquier lugar. ¡Revive los momentos destacados!",
+    image: require("./../assets/images/onboarding/3.png"),
   },
   {
-    id: '4',
-    title: 'Estadísticas y tendencias',
-    description: 'Trivia y estadísticas de la Lotería del Valle, al alcance de tu mano.',
-    image: require('./../assets/images/onboarding/4.png'),
+    id: "4",
+    title: "Estadísticas y tendencias",
+    description: "Trivia y estadísticas de la Lotería del Valle, al alcance de tu mano.",
+    image: require("./../assets/images/onboarding/4.png"),
   },
 ] as unknown as OnboardingItemProps[];

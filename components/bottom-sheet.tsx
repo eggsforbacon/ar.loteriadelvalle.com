@@ -1,14 +1,14 @@
-'use client';
+"use client";
 
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from '@gorhom/bottom-sheet';
-import React, { forwardRef, ReactNode, useCallback, useMemo } from 'react';
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
+import React, { forwardRef, ReactNode, useCallback, useMemo } from "react";
 
 type _Props = {
   children: ReactNode | ReactNode[];
 };
 
 const BottomSheetModalView = forwardRef<BottomSheetModal, _Props>(({ children }, ref) => {
-  const snapPoints = useMemo(() => ['60%'], []);
+  const snapPoints = useMemo(() => ["60%"], []);
 
   const renderBackdrop = useCallback(
     (props: any) => <BottomSheetBackdrop {...props} disappearsOnIndex={-1} appearsOnIndex={0} />,

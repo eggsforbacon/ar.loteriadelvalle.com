@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   View,
   Text,
@@ -6,7 +6,7 @@ import {
   useWindowDimensions,
   Platform,
   ImageSourcePropType,
-} from 'react-native';
+} from "react-native";
 
 export type OnboardingItemProps = {
   item: {
@@ -27,14 +27,14 @@ export const OnboardingItem = ({ item }: OnboardingItemProps) => {
         width,
       }}
       className={styles.container}>
-      <Image style={{ objectFit: 'contain' }} source={item.image} className={styles.image} />
+      <Image style={{ objectFit: "contain" }} source={item.image} className={styles.image} />
       <View style={{ flex: 0.3 }}>
         <Text
           className={styles.title}
           style={{
             fontFamily: Platform.select({
-              android: 'Poppins_800ExtraBold',
-              ios: 'Poppins-ExtraBold',
+              android: "Poppins_800ExtraBold",
+              ios: "Poppins-ExtraBold",
             }),
           }}>
           {item.title}
@@ -43,8 +43,8 @@ export const OnboardingItem = ({ item }: OnboardingItemProps) => {
           className={styles.description}
           style={{
             fontFamily: Platform.select({
-              android: 'Poppins_400Regular',
-              ios: 'Poppins-Regular',
+              android: "Poppins_400Regular",
+              ios: "Poppins-Regular",
             }),
           }}>
           {item.description}

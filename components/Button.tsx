@@ -1,5 +1,5 @@
-import { forwardRef } from 'react';
-import { Platform, Text, TouchableOpacity, TouchableOpacityProps, View } from 'react-native';
+import { forwardRef } from "react";
+import { Platform, Text, TouchableOpacity, TouchableOpacityProps, View } from "react-native";
 
 type ButtonProps = {
   title: string;
@@ -14,16 +14,18 @@ export const Button = forwardRef<View, ButtonProps>(({ title, ...touchableProps 
       <Text
         style={{
           fontFamily: Platform.select({
-            android: 'Poppins_700Bold',
-            ios: 'Poppins-Bold',
+            android: "Poppins_700Bold",
+            ios: "Poppins-Bold",
           }),
         }}
-        className={styles.buttonText}>{title}</Text>
+        className={styles.buttonText}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 });
 
 const styles = {
-  button: 'items-center bg-primary-700 rounded-[28px] shadow-md p-4',
-  buttonText: 'text-white text-lg text-center',
+  button: "items-center bg-primary-700 rounded-[28px] shadow-md p-4",
+  buttonText: "text-white text-lg text-center",
 };

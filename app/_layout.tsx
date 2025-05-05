@@ -111,7 +111,7 @@ export default function Layout() {
                 headerShadowVisible: false,
               }}
             />
-            <Stack.Screen name="news/[id]" options={{ headerShown: false }} />
+            <Stack.Screen name="/news/[id]" options={{ headerShown: false }} />
           </Stack>
         </PaperProvider>
       </BottomSheetModalProvider>

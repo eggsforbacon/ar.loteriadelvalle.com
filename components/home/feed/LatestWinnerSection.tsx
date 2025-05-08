@@ -16,7 +16,7 @@ export default function LatestWinnerSection() {
     latest.prizes.find((p) => p.prize === "Premio Mayor") || latest.prizes[0];
 
   return (
-    <TicketContainer className="z-10 mx-4 mt-4 p-4 pb-8">
+    <TicketContainer className="z-10 mx-4 mt-8 p-4 pb-8">
       <Text className="text-center text-base font-bold text-black">Último número ganador</Text>
       <Text className="my-4 text-center text-6xl font-bold text-primary-600">
         {mainPrize.number}

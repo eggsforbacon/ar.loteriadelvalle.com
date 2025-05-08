@@ -1,8 +1,9 @@
-import { useIsFocused } from "@react-navigation/native";
-import React, { useState, useEffect, useRef } from "react";
-import { View, ActivityIndicator } from "react-native";
-import { Text } from "react-native-paper";
-import Video from "react-native-video";
+import React, { useState, useEffect, useRef } from 'react';
+import { View, ActivityIndicator } from 'react-native';
+import { Text } from 'react-native-paper';
+import Video from 'react-native-video';
+import { useIsFocused } from '@react-navigation/native';
+import LiveTitle from './LiveTitle';
 
 interface VideoData {
   videoUrl: string;
@@ -27,8 +28,11 @@ const VideoSection = ({ videoData }: VideoSectionProps) => {
   }
 
   return (
-    <View className="bg-white p-4">
-      <View className="aspect-[16/9] w-full overflow-hidden rounded-xl bg-white">
+    <View className="p-4 bg-white gap-4">
+      <View className="items-center">
+        <LiveTitle isLive={videoData.isLive} />
+      </View>
+      <View className="w-full aspect-[16/9] rounded-xl overflow-hidden bg-white">
         <Video
           ref={videoRef}
           source={{ uri: videoData.videoUrl }}

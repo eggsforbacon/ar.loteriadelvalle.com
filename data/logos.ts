@@ -6,14 +6,14 @@ export interface Logo {
 
 export const Logos: Logo[] = [
   {
-    id: "benevalle",
-    image: require("../assets//logos/LOGO-Beneficencia-del-Valle.webp"),
-    url: "https://benevalle.gov.co/",
-  },
-  {
     id: "loteria",
     image: require("../assets/logos/LOGO-loteriadelvalle.png"),
     url: "https://loteriadelvalle.com/",
+  },
+  {
+    id: "benevalle",
+    image: require("../assets//logos/LOGO-Beneficencia-del-Valle.webp"),
+    url: "https://benevalle.gov.co/",
   },
   {
     id: "gobvalle",
@@ -24,5 +24,15 @@ export const Logos: Logo[] = [
     id: "org4",
     image: require("../assets/logos/LOGO-juegolegal.png"),
     // url: undefined
+  },
+  {
+    id: "gane",
+    image: require("../assets/logos/LOGO-gane.webp"),
+    url: "https://www.gane.com.co/",
+  },
+  {
+    id: "supergiros",
+    image: require("../assets/logos/LOGO-supergiros.webp"),
+    url: "https://www.supergiros.com.co/",
   },
 ];

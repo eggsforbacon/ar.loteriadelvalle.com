@@ -1,43 +1,57 @@
-"use client";
+'use client';
 
-import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import { requestCameraPermissionsAsync } from "expo-image-picker";
-import { Tabs } from "expo-router";
-import { useEffect } from "react";
+import React, { useEffect } from 'react';
+import { Tabs } from 'expo-router';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useRefreshStore } from '~/store/useRefresh';
+import { useAppContext } from '~/contexts/AppContext';
+import Header from '~/components/Header';
 
-export default function _layout() {
+export default function TabsLayout() {
+  const refreshKey = useRefreshStore((s) => s.refreshKey);
+  const {
+    refreshing,
+    rotate,
+    bellScale,
+    handleMenuPress,
+    handleRefresh,
+    handleBellPress,
+  } = useAppContext();
+
   useEffect(() => {
-    try {
-      AsyncStorage.getItem("onboarded").then((value) => {
-        if (value === null || value !== "true") {
-          AsyncStorage.setItem("onboarded", JSON.stringify(true)).then();
-        }
-      });
-    } catch (error) {
-      console.error(error);
-      console.info(`Unable to read or set onboarded value: ${error}`);
-    }
-  }, []);
-
-  useEffect(() => {
-    requestCameraPermissionsAsync().then();
+    AsyncStorage.getItem('onboarded').then((value) => {
+      if (value !== 'true') AsyncStorage.setItem('onboarded', 'true');
+    });
   }, []);
 
   return (
     <Tabs
+      key={refreshKey}
       screenOptions={{
+        header: () => (
+          <Header
+            title=""
+            onMenuPress={handleMenuPress}
+            onRefresh={handleRefresh}
+            onBellPress={handleBellPress}
+            rotate={rotate}
+            bellScale={bellScale}
+            refreshing={refreshing}
+          />
+        ),
         headerShadowVisible: false,
-        tabBarActiveTintColor: "#E21826",
-      }}>
+        headerTintColor: '#fff',
+        tabBarActiveTintColor: '#E21826',
+      }}
+    >
       <Tabs.Screen
         name="feed"
         options={{
           tabBarIcon: ({ color }) => <FontAwesome6 name="newspaper" size={24} color={color} />,
-          tabBarLabel: "Feed",
-          headerTitle: "Feed",
+          tabBarLabel: 'Feed',
         }}
       />
       <Tabs.Screen
@@ -46,16 +60,14 @@ export default function _layout() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="cube-scan" size={24} color={color} />
           ),
-          tabBarLabel: "Escanear",
-          headerTitle: "Escanear",
+          tabBarLabel: 'Escanear',
         }}
       />
       <Tabs.Screen
         name="wallet"
         options={{
           tabBarIcon: ({ color }) => <MaterialIcons name="wallet" size={24} color={color} />,
-          tabBarLabel: "Billetera",
-          headerTitle: "Billetera",
+          tabBarLabel: 'Billetera',
         }}
       />
       <Tabs.Screen
@@ -64,8 +76,7 @@ export default function _layout() {
           tabBarIcon: ({ color }) => (
             <MaterialCommunityIcons name="broadcast" size={24} color={color} />
           ),
-          tabBarLabel: "En Vivo",
-          headerTitle: "En Vivo",
+          tabBarLabel: 'En Vivo',
         }}
       />
     </Tabs>

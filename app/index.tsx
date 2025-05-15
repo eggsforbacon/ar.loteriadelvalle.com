@@ -3,7 +3,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, Link, Href } from "expo-router";
 import React, { useEffect } from "react";
-import { Platform, Text, View, LogBox } from "react-native";
+import { Platform, Text, View, Image, LogBox } from "react-native";
 
 import { Button } from "~/components/Button";
 import { Container } from "~/components/Container";
@@ -56,16 +56,16 @@ export default function Home() {
       <Stack.Screen options={{ title: "Home", headerShown: false }} />
       <Container>
         <View className={styles.container}>
-          <Text
-            style={{
-              fontFamily: Platform.select({
-                android: "Poppins_600SemiBold",
-                ios: "Poppins-SemiBold",
-              }),
-            }}
-            className={styles.title}>
-            Lotería del Valle
-          </Text>
+          <View className={styles.title}>
+            <Image
+              source={require("../assets/logos/LOGO-loteriadelvalle.png")}
+              style={{
+                width: 250,
+                height: 250,
+                resizeMode: "contain",
+              }}
+            />
+          </View>
           <Text
             style={{
               fontFamily: Platform.select({
@@ -73,10 +73,12 @@ export default function Home() {
                 ios: "Poppins-Regular",
               }),
             }}
-            className={styles.copy}>
+            className={styles.copy}
+          >
             Bienvenido a la aplicación de la lotería del Valle
           </Text>
         </View>
+
         <Link href={{ pathname: redirectTo } as Href} asChild>
           <Button title="Comenzar" />
         </Link>

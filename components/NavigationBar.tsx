@@ -10,9 +10,10 @@ type NavigationProps = {
   scrollX: Animated.Value;
   scrollTo: (mode: 'next' | 'prev') => void;
   currentIndex: number;
+  onComplete?: () => void;
 };
 
-export const NavigationBar = ({ data, scrollX, scrollTo, currentIndex }: NavigationProps) => {
+export const NavigationBar = ({ data, scrollX, scrollTo, currentIndex, onComplete }: NavigationProps) => {
   const { width } = useWindowDimensions();
 
   return (
@@ -42,9 +43,7 @@ export const NavigationBar = ({ data, scrollX, scrollTo, currentIndex }: Navigat
       <View className={styles.bar}>
         <Button title="Anterior" className={styles.previous} onPress={() => scrollTo('prev')} />
         {currentIndex === data.length - 1 ? (
-          <Link href={{ pathname: '/(tabs)/feed' }} asChild>
-            <Button title="Finalizar" className={styles.continue} />
-          </Link>
+          <Button title="Finalizar" className={styles.continue} onPress={onComplete} />
         ) : (
           <Button title="Siguiente" className={styles.continue} onPress={() => scrollTo('next')} />
         )}

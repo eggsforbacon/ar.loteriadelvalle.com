@@ -1,11 +1,10 @@
 "use client";
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { Stack, Link, Href } from "expo-router";
+import { Stack, useRouter } from "expo-router";
 import React, { useEffect } from "react";
-import { Platform, Text, View, Image, LogBox } from "react-native";
+import { Platform, Text, View, Image, LogBox, TouchableOpacity } from "react-native";
 
-import { Button } from "~/components/Button";
 import { Container } from "~/components/Container";
 
 LogBox.ignoreLogs([
@@ -31,65 +30,61 @@ console.error = (...args: any[]) => {
 };
 
 export default function Home() {
-  const [redirectTo, setRedirectTo] = React.useState("/onboarding");
-
-  useEffect(() => {
-    try {
-      AsyncStorage.getItem("onboarded").then((value) => {
-        if (value !== null && value === "true") {
-          console.info("Redirecting to '/feed'");
-          setRedirectTo("/feed");
-        } else {
-          console.info("Redirecting to '/onboarding'");
-          setRedirectTo("/onboarding");
-        }
-      });
-    } catch (error) {
-      console.error(error);
-      console.info("Redirecting to '/onboarding'");
-      setRedirectTo("/onboarding");
-    }
-  }, []);
+  const router = useRouter();
+  const handleStart = () => {
+    router.push("/onboarding");
+  };
 
   return (
     <>
       <Stack.Screen options={{ title: "Home", headerShown: false }} />
-      <Container>
-        <View className={styles.container}>
-          <View className={styles.title}>
+      <Container fullScreen>
+        <Image
+          source={require("../assets/images/home/background.png")}
+          className="absolute top-36 w-full h-full"
+          resizeMode="contain"
+        />
+
+        <View className="flex-1 justify-between items-center">
+          <View className="w-full items-center mt-8">
+            <Image
+              source={require("../assets/logos/LOGO-gobernacion2.png")}
+              className="w-4/5 h-20"
+              resizeMode="contain"
+            />
             <Image
               source={require("../assets/logos/LOGO-loteriadelvalle.png")}
-              style={{
-                width: 250,
-                height: 250,
-                resizeMode: "contain",
-              }}
+              className="w-4/5 h-40 mt-4"
+              resizeMode="contain"
             />
           </View>
-          <Text
-            style={{
-              fontFamily: Platform.select({
-                android: "Poppins_400Regular",
-                ios: "Poppins-Regular",
-              }),
-            }}
-            className={styles.copy}
-          >
-            Bienvenido a la aplicación de la lotería del Valle
-          </Text>
-        </View>
 
-        <Link href={{ pathname: redirectTo } as Href} asChild>
-          <Button title="Comenzar" />
-        </Link>
+          <View className="flex-1" />
+
+          <View className="w-full">
+            <View className="w-full items-center relative">
+              <TouchableOpacity
+                onPress={handleStart}
+                className="bg-red-600 w-5/6 h-32 rounded-xl p-4 z-10 absolute bottom-12 rounded-b-none justify-center"
+              >
+                <Text
+                  className="text-white text-4xl text-center"
+                  style={{ fontFamily: "Poppins_700Bold" }}
+                >
+                  Bienvenido
+                </Text>
+                <Text
+                  className="text-white text-2xl text-center mx-10"
+                  style={{ fontFamily: "Poppins_700Bold" }}
+                >
+                  a la aplicación de la lotería del Valle
+                </Text>
+              </TouchableOpacity>
+              <View className="bg-yellow-400 w-full h-12 absolute bottom-0" />
+            </View>
+          </View>
+        </View>
       </Container>
     </>
   );
 }
-
-const styles = {
-  container: `items-center flex-1 justify-start flex-col gap-4 pt-32`,
-  separator: `h-[1px] my-7 w-4/5 bg-neutral-200`,
-  title: `text-6xl text-center leading-[1.2]`,
-  copy: `text-center text-lg`,
-};

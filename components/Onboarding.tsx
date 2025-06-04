@@ -6,7 +6,11 @@ import { OnboardingItem } from "./OnboardingItem";
 import { NavigationBar } from "~/components/NavigationBar";
 import onboarding from "~/data/onboarding";
 
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useRouter } from "expo-router";
+
 export const Onboarding = () => {
+  const router = useRouter();
   const [currentIndex, setCurrentIndex] = useState(0);
   const scrollX = useRef(new Animated.Value(0)).current;
   const slidesRef = useRef<FlatList>(null);
@@ -28,6 +32,16 @@ export const Onboarding = () => {
         break;
     }
   };
+  
+  const completeOnboarding = async () => {
+    try {
+      await AsyncStorage.setItem("hasVisited", "true");
+      router.replace("/feed");
+    } catch (error) {
+      console.error("Error al guardar en AsyncStorage:", error);
+    }
+  };
+
   return (
     <View className={styles.container}>
       <View className={styles.listContainer}>
@@ -54,6 +68,7 @@ export const Onboarding = () => {
         scrollX={scrollX}
         scrollTo={scrollTo}
         currentIndex={currentIndex}
+        onComplete={completeOnboarding}
       />
     </View>
   );

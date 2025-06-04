@@ -1,16 +1,17 @@
 import "~/global.css";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
 import { Stack, useRouter } from "expo-router";
-import React from "react";
-import { useColorScheme } from "react-native";
+import React, { useEffect, useState } from "react";
+import { useColorScheme, View, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PaperProvider } from "react-native-paper";
-import NotificationOverlay from '~/components/ui/NotificationOverlay';
+import NotificationOverlay from "~/components/ui/NotificationOverlay";
 import { lightTheme, darkTheme } from "./theme";
 import Header from "~/components/Header";
 import SideMenu from "~/components/ui/SideMenu";
 import { AppProvider, useAppContext } from "~/contexts/AppContext";
 import * as Notifications from "expo-notifications";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,16 +21,52 @@ Notifications.setNotificationHandler({
   }),
 });
 
+const LoadingScreen: React.FC = () => {
+  return (
+    <View className="flex-1 bg-white justify-center items-center">
+      <Image
+        source={require("../assets/logos/LOGO-loteriadelvalle.png")}
+        className="w-3/5 h-40"
+        resizeMode="contain"
+      />
+    </View>
+  );
+};
+
 export default function Layout() {
   const colorScheme = useColorScheme();
   const theme = colorScheme === "dark" ? darkTheme : lightTheme;
+
+  const [isChecking, setIsChecking] = useState(true);
+  const [hasVisited, setHasVisited] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkFirstTime = async () => {
+      try {
+        const value = await AsyncStorage.getItem("hasVisited");
+        setHasVisited(value === "true");
+      } catch (error) {
+        console.error("Error al verificar AsyncStorage:", error);
+        setHasVisited(false);
+      } finally {
+        setTimeout(() => {
+          setIsChecking(false);
+        }, 1000);
+      }
+    };
+    checkFirstTime();
+  }, []);
+
+  if (isChecking || hasVisited === null) {
+    return <LoadingScreen />;
+  }
 
   return (
     <AppProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
           <PaperProvider theme={theme}>
-            <LayoutContent />
+            <LayoutContent hasVisited={hasVisited} />
           </PaperProvider>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
@@ -37,7 +74,7 @@ export default function Layout() {
   );
 }
 
-const LayoutContent: React.FC = () => {
+const LayoutContent: React.FC<{ hasVisited: boolean }> = ({ hasVisited }) => {
   const {
     menuOpen,
     setMenuOpen,
@@ -51,6 +88,13 @@ const LayoutContent: React.FC = () => {
     handleBellPress,
   } = useAppContext();
   const router = useRouter();
+
+  useEffect(() => {
+    if (hasVisited) {
+      router.replace("/(tabs)/feed");
+    } else {
+    }
+  }, [hasVisited, router]);
 
   return (
     <>

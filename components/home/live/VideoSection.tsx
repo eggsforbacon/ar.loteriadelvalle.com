@@ -4,6 +4,8 @@ import { View, ActivityIndicator } from "react-native";
 import { Text } from "react-native-paper";
 import Video from "react-native-video";
 
+import LiveTitle from "./LiveTitle";
+
 interface VideoData {
   videoUrl: string;
   isLive: boolean;
@@ -27,7 +29,10 @@ const VideoSection = ({ videoData }: VideoSectionProps) => {
   }
 
   return (
-    <View className="bg-white p-4">
+    <View className="gap-4 bg-white p-4">
+      <View className="items-center">
+        <LiveTitle isLive={videoData.isLive} />
+      </View>
       <View className="aspect-[16/9] w-full overflow-hidden rounded-xl bg-white">
         <Video
           ref={videoRef}

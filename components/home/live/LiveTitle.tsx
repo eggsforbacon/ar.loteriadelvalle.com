@@ -1,6 +1,6 @@
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import React, { useEffect } from "react";
-import { View, Text, StyleSheet } from "react-native";
+import { View, Text } from "react-native";
 import Animated, {
   useSharedValue,
   useAnimatedStyle,
@@ -31,22 +31,12 @@ const LiveIcon = ({ isLive }: { isLive: boolean }) => {
 };
 
 const LiveTitle = ({ isLive }: { isLive: boolean }) => (
-  <View style={styles.titleContainer}>
-    <Text style={styles.titleText}>En Vivo</Text>
+  <View className="mt-2 flex-row align-middle">
+    <Text className="text-brand-dark-red mx-2 text-2xl font-bold">
+      {isLive ? "En Vivo" : "Última retransmisión"}
+    </Text>
     <LiveIcon isLive={isLive} />
   </View>
 );
-
-const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-  },
-  titleText: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginRight: 8,
-  },
-});
 
 export default LiveTitle;

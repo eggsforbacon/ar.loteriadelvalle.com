@@ -57,3 +57,17 @@ export async function fetchNewsById(id: string): Promise<NewsDetail> {
     contentHtml: post.content.rendered,
   };
 }
+
+export async function fetchAllNews(page: number): Promise<NewsItem[]> {
+  const resp = await fetch(`${BASE_URL}/posts?per_page=5&page=${page}&_embed`);
+  if (!resp.ok) throw new Error(`Error fetching news: ${resp.status}`);
+  const data: WPPost[] = await resp.json();
+  return data.map((post) => ({
+    id: post.id.toString(),
+    title: decodeHtmlEntities(post.title.rendered),
+    imageUri:
+      post._embedded?.["wp:featuredmedia"]?.[0]?.source_url ||
+      post.uagb_featured_image_src?.full[0] ||
+      "",
+  }));
+}

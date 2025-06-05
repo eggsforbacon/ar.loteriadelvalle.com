@@ -30,7 +30,7 @@ export const ScanViewARScene = () => {
             onDrag={() => {}}>
             <Viro3DObject
               type="GLB"
-              source={require("./../../../assets/models/walkman.glb")}
+              source={require("./../../../assets/models/walkman-shrunk.glb")}
               position={[0, 0, 0]}
               scale={[1, 1, 1]}
               className={`transition-all duration-200 ease-in-out ${shown ? "opacity-100" : "opacity-0"}`}
@@ -44,7 +44,7 @@ export const ScanViewARScene = () => {
 
 ViroARTrackingTargets.createTargets({
   logo: {
-    source: require("./../../../assets/images/ar/code.png"),
+    source: require("./../../../assets/images/ar/ticket.webp"),
     orientation: "Up",
     physicalWidth: 0.2,
   },

@@ -42,6 +42,7 @@
           ]
         }
       ],
+      "@reactvision/react-viro",
       "react-native-video",
       [
         "expo-camera",

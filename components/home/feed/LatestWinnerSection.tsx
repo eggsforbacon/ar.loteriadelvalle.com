@@ -1,19 +1,49 @@
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
-
 import { TicketContainer } from "~/components/TicketContainer";
-import { mockData, Draw, Prize } from "~/data/lottery";
+
+// Definimos las interfaces para los datos de la API
+interface Prize {
+  prize: string;
+  number: string;
+  series: string;
+}
+
+interface Draw {
+  draw: string;
+  date: string;
+  prizes: Prize[];
+}
 
 export default function LatestWinnerSection() {
   const router = useRouter();
-  const sorted: Draw[] = [...mockData].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
+  const [latestDraw, setLatestDraw] = useState<Draw | null>(null);
 
-  const latest: Draw = sorted[0];
-  const mainPrize: Prize =
-    latest.prizes.find((p) => p.prize === "Premio Mayor") || latest.prizes[0];
+  useEffect(() => {
+    const fetchLatestDraw = async () => {
+      try {
+        const response = await fetch("https://loteria.marabunta.co/api/last-draw");
+        if (!response.ok) {
+          throw new Error("Error en la solicitud a la API");
+        }
+        const data: Draw = await response.json();
+        setLatestDraw(data);
+      } catch (error) {
+        console.error("Error al obtener el último sorteo:", error);
+      }
+    };
+
+    fetchLatestDraw();
+  }, []);
+
+  if (!latestDraw) {
+    return (
+        <Text className="text-center text-base font-bold text-black">Cargando...</Text>
+    );
+  }
+
+  const mainPrize: Prize = latestDraw.prizes.find((p) => p.prize === "Premio Mayor") || latestDraw.prizes[0];
 
   return (
     <TicketContainer className="z-10 mx-4 mt-8 p-4 pb-8">
@@ -24,7 +54,7 @@ export default function LatestWinnerSection() {
       <View className="mb-6 flex-row justify-around">
         <View className="items-center">
           <Text className="font-semibold text-neutral-700">Sorteo:</Text>
-          <Text className="font-medium text-neutral-600">{latest.draw}</Text>
+          <Text className="font-medium text-neutral-600">{latestDraw.draw}</Text>
         </View>
         <View className="items-center">
           <Text className="font-semibold text-neutral-700">Serie:</Text>
@@ -32,7 +62,7 @@ export default function LatestWinnerSection() {
         </View>
         <View className="items-center">
           <Text className="font-semibold text-neutral-700">Fecha:</Text>
-          <Text className="font-medium text-neutral-600">{latest.date}</Text>
+          <Text className="font-medium text-neutral-600">{latestDraw.date}</Text>
         </View>
         <View className="items-center">
           <Text className="font-semibold text-neutral-700">Premio:</Text>

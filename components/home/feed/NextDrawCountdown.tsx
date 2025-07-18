@@ -17,16 +17,20 @@ type TimeLeft = {
 
 function computeTimeLeft(): TimeLeft {
   const now = new Date();
-  const dow = now.getDay();
+  const offset = 5 * 3600 * 1000;
+  const localNow = new Date(now.getTime() - offset);
+  const dow = localNow.getDay();
   let daysUntil = (3 - dow + 7) % 7;
 
-  if (dow === 3 && (now.getHours() > 22 || (now.getHours() === 22 && now.getMinutes() >= 0))) {
+  if (dow === 3 && (localNow.getHours() > 22 || (localNow.getHours() === 22 && localNow.getMinutes() >= 30))) {
     daysUntil = 7;
   }
 
-  const target = new Date(now);
-  target.setDate(now.getDate() + daysUntil);
-  target.setHours(22, 0, 0, 0);
+  const targetLocal = new Date(localNow);
+  targetLocal.setDate(localNow.getDate() + daysUntil);
+  targetLocal.setHours(22, 30, 0, 0);
+
+  const target = new Date(targetLocal.getTime() + offset);
 
   const diffSec = Math.floor((target.getTime() - now.getTime()) / 1000);
   const days = Math.floor(diffSec / 86400);

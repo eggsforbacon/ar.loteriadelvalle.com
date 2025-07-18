@@ -1,13 +1,11 @@
 import React, { useState, useRef } from "react";
 import { View, FlatList, Animated } from "react-native";
-
 import { OnboardingItem } from "./OnboardingItem";
-
 import { NavigationBar } from "~/components/NavigationBar";
 import onboarding from "~/data/onboarding";
-
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
+import { registerForPushNotificationsAsync, requestCameraPermissionsAsync } from "~/contexts/AppContext";
 
 export const Onboarding = () => {
   const router = useRouter();
@@ -36,6 +34,8 @@ export const Onboarding = () => {
   const completeOnboarding = async () => {
     try {
       await AsyncStorage.setItem("hasVisited", "true");
+      registerForPushNotificationsAsync();
+      requestCameraPermissionsAsync();
       router.replace("/feed");
     } catch (error) {
       console.error("Error al guardar en AsyncStorage:", error);

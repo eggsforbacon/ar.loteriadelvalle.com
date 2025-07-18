@@ -1,13 +1,15 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { View, ActivityIndicator } from 'react-native';
+import { View, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { Text } from 'react-native-paper';
-import Video from 'react-native-video';
+import VideoPlayer from 'react-native-video-player';
 import { useIsFocused } from '@react-navigation/native';
 import LiveTitle from './LiveTitle';
+import { Linking } from 'react-native';
 
 interface VideoData {
   videoUrl: string;
   isLive: boolean;
+  permalink_url?: string;
 }
 
 interface VideoSectionProps {
@@ -33,16 +35,23 @@ const VideoSection = ({ videoData }: VideoSectionProps) => {
         <LiveTitle isLive={videoData.isLive} />
       </View>
       <View className="w-full aspect-[16/9] rounded-xl overflow-hidden bg-white">
-        <Video
+        <VideoPlayer
           ref={videoRef}
           source={{ uri: videoData.videoUrl }}
           className="h-full w-full"
           style={{ width: "100%", height: "100%" }}
-          controls
           resizeMode="contain"
           paused={isPaused}
         />
       </View>
+      {videoData.isLive && videoData.permalink_url && (
+        <TouchableOpacity
+          className="bg-blue-500 p-2.5 rounded-lg items-center mt-2.5"
+          onPress={() => Linking.openURL(videoData.permalink_url!)}
+        >
+          <Text style={{ color: 'white', fontWeight: 'bold' }}>Ver en Facebook</Text>
+        </TouchableOpacity>
+      )}
     </View>
   );
 };

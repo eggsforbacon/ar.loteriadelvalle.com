@@ -1,9 +1,7 @@
 "use client";
 
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { Stack, useRouter } from "expo-router";
-import React, { useEffect } from "react";
-import { Platform, Text, View, Image, LogBox, TouchableOpacity } from "react-native";
+import { Text, View, Image, LogBox, TouchableOpacity } from "react-native";
 
 import { Container } from "~/components/Container";
 

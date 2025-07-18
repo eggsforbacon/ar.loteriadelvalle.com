@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "ar.loteria.marabunta.co",
+    "name": "Loteria del Valle",
     "slug": "ar-loteria-marabunta-co",
     "version": "1.0.0",
     "scheme": "ar.loteria.marabunta.co",
@@ -63,10 +63,10 @@
       "tsconfigPaths": true
     },
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon-lot.png",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/icon-lot.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
@@ -85,8 +85,9 @@
       "bundleIdentifier": "co.marabunta.loteria.ar"
     },
     "android": {
+      "versionCode": 1,
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon-lot.png",
         "backgroundColor": "#ffffff"
       },
       "package": "co.marabunta.loteria.ar",
@@ -97,7 +98,7 @@
       ]
     },
     "extra": {
-      "apiUrl": "https://3638-161-18-245-208.ngrok-free.app",
+      "apiUrl": "https://loteria.marabunta.co",
       "router": {
         "origin": false
       },

@@ -1,4 +1,3 @@
-import { Link } from 'expo-router';
 import React from 'react';
 import { Animated, View, useWindowDimensions } from 'react-native';
 

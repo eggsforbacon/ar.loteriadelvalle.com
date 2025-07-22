@@ -2,6 +2,8 @@ import { AntDesign } from "@expo/vector-icons";
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
 import { useIsFocused } from "@react-navigation/native";
 import { ViroARSceneNavigator } from "@reactvision/react-viro";
+import { BarcodeScanningResult, CameraView, useCameraPermissions } from "expo-camera";
+import { useFocusEffect } from "expo-router";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Text, TouchableOpacity, View } from "react-native";
 
@@ -15,9 +17,21 @@ let arNavigatorRef = null;
 export default function Scan() {
   const isFocused = useIsFocused();
   const [showAR, setShowAR] = useState(true);
+  const [codeDetected, setCodeDetected] = useState<boolean>(false);
+  const [permission, requestPermission] = useCameraPermissions();
   const modalRef = useRef<BottomSheetModal>(null);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const arNavigator = useRef(null);
+
+  useFocusEffect(
+    useCallback(() => {
+      setCodeDetected(false);
+    }, [])
+  );
+
+  useEffect(() => {
+    if (!permission || !permission.granted) {
+      requestPermission();
+    }
+  }, [permission]);
 
   useEffect(() => {
     if (isFocused) {
@@ -26,6 +40,14 @@ export default function Scan() {
       setShowAR(false);
     }
   }, [isFocused]);
+
+  const handleBarcodeScan = ({ data, type: _ }: BarcodeScanningResult) => {
+    console.info("BarcodeScan: ", data);
+    const MATCH = "https://qrco.de/bg9PYP";
+    if (data === MATCH) {
+      setCodeDetected(true);
+    }
+  };
 
   const { toggleModal } = useBottomSheetModalStore();
 
@@ -43,7 +65,20 @@ export default function Scan() {
   return (
     <View className="relative flex-1 items-center justify-center gap-4 bg-white">
       <View className="h-full w-full overflow-hidden">
-        {showAR && (
+        {!codeDetected && (
+          <CameraView
+            style={{ flex: 1 }}
+            className="debug"
+            facing="back"
+            barcodeScannerSettings={{
+              barcodeTypes: ["qr", "ean13", "ean8", "upc_a", "upc_e", "code39", "code128"],
+            }}
+            onBarcodeScanned={(r) => {
+              handleBarcodeScan(r);
+            }}
+          />
+        )}
+        {showAR && codeDetected && (
           <ViroARSceneNavigator
             ref={(ref) => (arNavigatorRef = ref)}
             initialScene={{ scene: ScanViewARScene }}

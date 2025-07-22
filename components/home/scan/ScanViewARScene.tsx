@@ -20,23 +20,23 @@ export const ScanViewARScene = () => {
   return (
     <View className="px-6">
       <ViroARScene>
-        <ViroARImageMarker target="logo" onAnchorFound={() => setShown(true)}>
-          <ViroAmbientLight color="#FFFFFF" />
-          <ViroNode
+        <ViroAmbientLight color="#FFFFFF" />
+        <ViroNode
+          position={[0, -0.1, -0.3]}
+          scale={[1, 1, 1]}
+          rotation={[0, 0, 0]}
+          dragType="FixedDistance"
+          highAccuracyEvents
+          onDrag={() => {}}>
+          <Viro3DObject
+            type="GLB"
+            source={require("./../../../assets/models/lotero.glb")}
             position={[0, 0, 0]}
             scale={[1, 1, 1]}
-            rotation={[0, 0, 0]}
-            dragType="FixedToPlane"
-            onDrag={() => {}}>
-            <Viro3DObject
-              type="GLB"
-              source={require("./../../../assets/models/walkman-shrunk.glb")}
-              position={[0, 0, 0]}
-              scale={[1, 1, 1]}
-              className={`transition-all duration-200 ease-in-out ${shown ? "opacity-100" : "opacity-0"}`}
-            />
-          </ViroNode>
-        </ViroARImageMarker>
+            className={`transition-all duration-200 ease-in-out`}
+          />
+        </ViroNode>
+        <ViroARImageMarker target="logo" onAnchorFound={() => setShown(true)}></ViroARImageMarker>
       </ViroARScene>
     </View>
   );
@@ -44,8 +44,8 @@ export const ScanViewARScene = () => {
 
 ViroARTrackingTargets.createTargets({
   logo: {
-    source: require("./../../../assets/images/ar/ticket.webp"),
+    source: require("./../../../assets/images/ar/code.png"),
     orientation: "Up",
-    physicalWidth: 0.2,
+    physicalWidth: 0.1,
   },
 });

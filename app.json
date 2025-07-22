@@ -98,14 +98,14 @@
       ]
     },
     "extra": {
-      "apiUrl": "https://8a85-161-18-245-208.ngrok-free.app",
+      "apiUrl": "https://ec12-161-18-245-208.ngrok-free.app",
       "router": {
         "origin": false
       },
       "eas": {
-        "projectId": "50fe5bfa-fbfe-4f0a-973b-fdb5c44bc4e6"
+        "projectId": "8dae887e-40d1-4073-855d-e7f85740f294"
       }
     },
-    "owner": "camiloamf"
+    "owner": "marabunta"
   }
 }

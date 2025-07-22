@@ -2,8 +2,8 @@ import { useRouter } from "expo-router";
 import React, { useState, useEffect } from "react";
 import { View, Text, TouchableOpacity } from "react-native";
 import { TicketContainer } from "~/components/TicketContainer";
+import Constants from "expo-constants";
 
-// Definimos las interfaces para los datos de la API
 interface Prize {
   prize: string;
   number: string;
@@ -23,7 +23,8 @@ export default function LatestWinnerSection() {
   useEffect(() => {
     const fetchLatestDraw = async () => {
       try {
-        const response = await fetch("https://loteria.marabunta.co/api/last-draw");
+        const apiUrl = Constants.expoConfig?.extra?.apiUrl;
+        const response = await fetch(`${apiUrl}/api/last-draw`);
         if (!response.ok) {
           throw new Error("Error en la solicitud a la API");
         }

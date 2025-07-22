@@ -75,7 +75,7 @@ export default function Home() {
                   className="text-white text-2xl text-center mx-10"
                   style={{ fontFamily: "Poppins_700Bold" }}
                 >
-                  a la aplicación de la lotería del Valle
+                  a la aplicación de la Lotería del Valle
                 </Text>
               </TouchableOpacity>
               <View className="bg-yellow-400 w-full h-12 absolute bottom-0" />

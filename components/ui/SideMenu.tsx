@@ -114,7 +114,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ visible, onClose }) => {
             </Pressable>
           </View>
 
-          <View className="items-center py-4">
+          <View className="items-center py-4 pointer-events-none">
             <Image
               source={require('~/assets/logos/LOGO-loteriadelvalle.png')}
               className="w-45 h-40"

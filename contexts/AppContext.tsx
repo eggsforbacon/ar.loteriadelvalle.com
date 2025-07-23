@@ -1,3 +1,4 @@
+import { Camera } from "expo-camera";
 import Constants from "expo-constants";
 import * as Notifications from "expo-notifications";
 import { useRouter } from "expo-router";
@@ -28,6 +29,57 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
+export const registerForPushNotificationsAsync = async () => {
+  try {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== "granted") {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== "granted") {
+      Alert.alert("Permisos de notificación no concedidos");
+      return;
+    }
+
+    const tokenData = await Notifications.getExpoPushTokenAsync();
+    const token = tokenData.data;
+    console.log("Expo Push Token:", token);
+
+    const apiUrl = Constants.expoConfig?.extra?.apiUrl;
+    await fetch(`${apiUrl}/register-token`, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ token }),
+    });
+  } catch (error) {
+    console.error("Error registrando push notifications:", error);
+  }
+
+  if (Platform.OS === "android") {
+    await Notifications.setNotificationChannelAsync("default", {
+      name: "default",
+      importance: Notifications.AndroidImportance.MAX,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: "#FF231F7C",
+    });
+  }
+};
+
+export const requestCameraPermissionsAsync = async () => {
+  try {
+    const { status } = await Camera.requestCameraPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert("Permisos de cámara no concedidos");
+      return false;
+    }
+    return true;
+  } catch (error) {
+    console.error("Error solicitando permisos de cámara:", error);
+    return false;
+  }
+};
+
 export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [overlayVisible, setOverlayVisible] = useState(false);
@@ -41,45 +93,6 @@ export const AppProvider: React.FC<{ children: React.ReactNode }> = ({ children 
   const triggerRefresh = useRefreshStore((s) => s.triggerRefresh);
 
   useEffect(() => {
-    async function registerForPushNotificationsAsync() {
-      try {
-        const { status: existingStatus } = await Notifications.getPermissionsAsync();
-        let finalStatus = existingStatus;
-        if (existingStatus !== "granted") {
-          const { status } = await Notifications.requestPermissionsAsync();
-          finalStatus = status;
-        }
-        if (finalStatus !== "granted") {
-          Alert.alert("Permisos de notificación no concedidos");
-          return;
-        }
-
-        const tokenData = await Notifications.getExpoPushTokenAsync();
-        const token = tokenData.data;
-        console.log("Expo Push Token:", token);
-
-        const apiUrl = Constants.expoConfig?.extra?.apiUrl;
-        await fetch(`${apiUrl}/register-token`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ token }),
-        });
-      } catch (error) {
-        console.error("Error registrando push notifications:", error);
-      }
-
-      if (Platform.OS === "android") {
-        await Notifications.setNotificationChannelAsync("default", {
-          name: "default",
-          importance: Notifications.AndroidImportance.MAX,
-          vibrationPattern: [0, 250, 250, 250],
-          lightColor: "#FF231F7C",
-        });
-      }
-    }
-
-    registerForPushNotificationsAsync();
-
     notificationListener.current = Notifications.addNotificationReceivedListener((notification) => {
       const { title, body, data } = notification.request.content;
       addNotification({

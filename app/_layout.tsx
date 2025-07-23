@@ -1,9 +1,10 @@
 import "~/global.css";
 import { BottomSheetModalProvider } from "@gorhom/bottom-sheet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Notifications from "expo-notifications";
-import { Stack } from "expo-router";
-import React from "react";
-import { useColorScheme } from "react-native";
+import { Stack, useRouter } from "expo-router";
+import React, { useEffect, useState } from "react";
+import { useColorScheme, View, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PaperProvider } from "react-native-paper";
 
@@ -22,16 +23,52 @@ Notifications.setNotificationHandler({
   }),
 });
 
+const LoadingScreen: React.FC = () => {
+  return (
+    <View className="flex-1 items-center justify-center bg-white">
+      <Image
+        source={require("../assets/logos/LOGO-loteriadelvalle.png")}
+        className="h-40 w-3/5"
+        resizeMode="contain"
+      />
+    </View>
+  );
+};
+
 export default function Layout() {
   const colorScheme = useColorScheme();
   const theme = colorScheme === "dark" ? darkTheme : lightTheme;
+
+  const [isChecking, setIsChecking] = useState(true);
+  const [hasVisited, setHasVisited] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    const checkFirstTime = async () => {
+      try {
+        const value = await AsyncStorage.getItem("hasVisited");
+        setHasVisited(value === "true");
+      } catch (error) {
+        console.error("Error al verificar AsyncStorage:", error);
+        setHasVisited(false);
+      } finally {
+        setTimeout(() => {
+          setIsChecking(false);
+        }, 1000);
+      }
+    };
+    checkFirstTime();
+  }, []);
+
+  if (isChecking || hasVisited === null) {
+    return <LoadingScreen />;
+  }
 
   return (
     <AppProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
         <BottomSheetModalProvider>
           <PaperProvider theme={theme}>
-            <LayoutContent />
+            <LayoutContent hasVisited={hasVisited} />
           </PaperProvider>
         </BottomSheetModalProvider>
       </GestureHandlerRootView>
@@ -39,7 +76,7 @@ export default function Layout() {
   );
 }
 
-const LayoutContent: React.FC = () => {
+const LayoutContent: React.FC<{ hasVisited: boolean }> = ({ hasVisited }) => {
   const {
     menuOpen,
     setMenuOpen,
@@ -52,6 +89,14 @@ const LayoutContent: React.FC = () => {
     handleRefresh,
     handleBellPress,
   } = useAppContext();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (hasVisited) {
+      router.replace("/(tabs)/feed");
+    } else {
+    }
+  }, [hasVisited, router]);
 
   return (
     <>

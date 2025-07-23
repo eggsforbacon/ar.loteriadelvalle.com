@@ -5,6 +5,7 @@ export const useVideoData = () => {
   const [videoData, setVideoData] = useState<{
     videoUrl: string;
     isLive: boolean;
+    permalink_url?: string;
   } | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -16,7 +17,7 @@ export const useVideoData = () => {
       const data = await response.json();
       setVideoData(data);
     } catch (error) {
-      console.error("Error al obtener datos del video:", error);
+      console.log("Error al obtener datos del video:", error);
     } finally {
       setIsLoading(false);
     }

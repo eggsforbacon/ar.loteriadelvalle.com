@@ -12,7 +12,7 @@ export const Logos: Logo[] = [
   },
   {
     id: "benevalle",
-    image: require("../assets//logos/LOGO-Beneficencia-del-Valle.webp"),
+    image: require("../assets//logos/LOGO-Beneficencia-del-Valle.png"),
     url: "https://benevalle.gov.co/",
   },
   {
@@ -27,7 +27,7 @@ export const Logos: Logo[] = [
   },
   {
     id: "gane",
-    image: require("../assets/logos/LOGO-gane.webp"),
+    image: require("../assets/logos/LOGO-gane.png"),
     url: "https://www.gane.com.co/",
   },
   {
@@ -37,7 +37,7 @@ export const Logos: Logo[] = [
   },
   {
     id: "supergiros",
-    image: require("../assets/logos/LOGO-supergiros.webp"),
+    image: require("../assets/logos/LOGO-supergiros.png"),
     url: "https://www.supergiros.com.co/",
   },
 ];

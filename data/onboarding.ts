@@ -25,10 +25,10 @@ export default [
       "Disfruta de nuestra transmisión en vivo, ahora desde cualquier lugar. ¡Revive los momentos destacados!",
     image: require("./../assets/images/onboarding/3.png"),
   },
-  {
+  /* {
     id: "4",
     title: "Estadísticas y tendencias",
     description: "Trivia y estadísticas de la Lotería del Valle, al alcance de tu mano.",
     image: require("./../assets/images/onboarding/4.png"),
-  },
+  }, */
 ] as unknown as OnboardingItemProps[];

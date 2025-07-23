@@ -24,7 +24,6 @@ export const useLastRetransmission = () => {
       }
       setVideoData(data);
     } catch (error: any) {
-      console.error("Error al obtener la última retransmisión:", error);
       setError(error.message || "Error al obtener la última retransmisión");
       setVideoData(null);
     } finally {

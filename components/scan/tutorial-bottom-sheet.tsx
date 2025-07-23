@@ -1,97 +1,51 @@
 import { BottomSheetModal } from "@gorhom/bottom-sheet";
-import { forwardRef, useState } from "react";
-import { View, Text, Image, ImageSourcePropType, TouchableOpacity } from "react-native";
+import React, { forwardRef, useState } from "react";
+import { View, Text, TouchableOpacity } from "react-native";
 
+import { ARCarousel } from "~/components/ARCarousel";
 import BottomSheetModalView from "~/components/bottom-sheet";
 
 type _Props = object;
 
-type SecurityMeasure = {
-  title: string;
-  description: string;
-  uri: ImageSourcePropType[];
-};
-
 const TutorialBottomSheet = forwardRef<BottomSheetModal, _Props>((_, modalRef) => {
-  const securityMeasures: SecurityMeasure[] = [
-    {
-      title: "Verifica a contraluz",
-      description:
-        "Sostén el billete a contraluz. El primer semicírculo se completará perfectamente si tu billete es legal",
-      uri: [
-        require("./../../assets/images/ar/security/Backlight_OFF.png"),
-        require("./../../assets/images/ar/security/Backlight_ON.png"),
-      ],
-    },
-    {
-      title: "Cambia de color al frotar",
-      description:
-        "Frota el círculo rosado con tu dedo. Verás al círculo de color desaparecer si tu billete es legal.",
-      uri: [
-        require("./../../assets/images/ar/security/Friction_OFF.png"),
-        require("./../../assets/images/ar/security/Friction_ON.png"),
-      ],
-    },
-    {
-      title: "Raspa con una moneda",
-      description:
-        "Con una moneda raspa el último círculo. Cambiará de color si tu billete es legal.",
-      uri: [
-        require("./../../assets/images/ar/security/Coin_OFF.png"),
-        require("./../../assets/images/ar/security/Coin_ON.png"),
-      ],
-    },
-  ];
-
-  const RenderMeasure = ({ title, uri, description }: SecurityMeasure) => {
-    const [open, setOpen] = useState<boolean>(false);
-
-    return (
-      <TouchableOpacity
-        activeOpacity={0.8}
-        onPress={() => setOpen(!open)}
-        className={`flex items-center justify-between gap-4 transition-all duration-200 ease-in-out ${open ? "flex-col" : "flex-row"}`}>
-        <View
-          className={`relative transition-all duration-200 ease-in-out ${open ? "order-1 !h-52 !w-52" : "order-none h-24 w-24"}`}>
-          <Image
-            source={uri[0]}
-            className={`${open ? "h-52 w-52" : "h-24 w-24"} absolute transition-all duration-200 ease-in-out`}
-          />
-          {open && (
-            <Image
-              source={uri[1]}
-              className={`absolute left-0 top-0 h-52 w-52 ${open ? "opacity-100" : "opacity-0"}`}
-            />
-          )}
-        </View>
-        <View
-          className={`flex flex-1 flex-col items-stretch justify-center gap-2 transition-all duration-200 ease-in-out `}>
-          <Text className="text-2xl">{title}</Text>
-          <Text className="text-wrap">{description}</Text>
-        </View>
-      </TouchableOpacity>
-    );
-  };
+  const [mode, setMode] = useState<"security" | "ar">("security");
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   return (
     <BottomSheetModalView ref={modalRef} snaps={["60%", "100%"]}>
-      <Text className="text-4xl font-semibold">¿Cómo funciona?</Text>
-      <View className="flex flex-col gap-8">
-        <Text className="text-lg text-neutral-700">
-          ¡Desde esta pantalla podrás ver nuestras campañas actuales en realidad aumentada! También
-          puedes ver nuestras medidas de seguridad
+      <View className="flex flex-col items-stretch justify-start gap-4">
+        <Text className="text-center text-4xl font-semibold">¿Cómo funciona?</Text>
+        <Text className="text-center text-neutral-700">
+          Desde esta pantalla podrás ver nuestras campañas publicitarias actuales en realidad
+          aumentada. También te enseñamos como asegurarte de la legalidad de tu billete, ¡y que así
+          le Juegues legal a La Salud!
         </Text>
-        <View className="flex flex-col items-stretch justify-start gap-16">
-          {securityMeasures.map((sec, i) => {
-            return (
-              <RenderMeasure
-                key={i}
-                title={sec.title}
-                description={sec.description}
-                uri={sec.uri}
-              />
-            );
-          })}
+        <View className="flex flex-col items-stretch justify-start gap-4">
+          <View className="flex h-16 flex-row items-stretch justify-center rounded-full border border-primary-600">
+            <TouchableOpacity
+              onPress={() => {
+                setCurrentIndex(0);
+                setMode("security");
+              }}
+              className={`flex flex-1 flex-row items-center justify-center overflow-hidden rounded-l-full ${mode === "security" && "bg-primary-600"}`}>
+              <Text
+                className={`text-lg ${mode === "security" ? "font-bold text-white" : "text-primary-600"}`}>
+                Medidas de Seguridad
+              </Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => {
+                setCurrentIndex(0);
+                setMode("ar");
+              }}
+              className={`flex flex-1 flex-row items-center justify-center overflow-hidden rounded-r-full ${mode === "ar" && "bg-primary-600"}`}>
+              <Text
+                className={`text-lg ${mode === "ar" ? "font-bold text-white" : "text-primary-600"}`}>
+                Experiencia AR
+              </Text>
+            </TouchableOpacity>
+          </View>
+          <ARCarousel mode={mode} currentIndex={currentIndex} setCurrentIndex={setCurrentIndex} />
         </View>
       </View>
     </BottomSheetModalView>

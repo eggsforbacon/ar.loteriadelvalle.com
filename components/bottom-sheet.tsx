@@ -1,6 +1,6 @@
 "use client";
 
-import { BottomSheetBackdrop, BottomSheetModal, BottomSheetView } from "@gorhom/bottom-sheet";
+import { BottomSheetBackdrop, BottomSheetModal, BottomSheetScrollView } from "@gorhom/bottom-sheet";
 import React, { forwardRef, ReactNode, useCallback, useMemo } from "react";
 import { SafeAreaView } from "react-native";
 
@@ -25,9 +25,9 @@ const BottomSheetModalView = forwardRef<BottomSheetModal, _Props>(({ children, s
         index={0}
         enablePanDownToClose
         backdropComponent={renderBackdrop}>
-        <BottomSheetView className="flex flex-col items-stretch justify-end gap-4 px-6 py-4">
+        <BottomSheetScrollView className="flex flex-col gap-4 px-6 py-4">
           {children}
-        </BottomSheetView>
+        </BottomSheetScrollView>
       </BottomSheetModal>
     </SafeAreaView>
   );

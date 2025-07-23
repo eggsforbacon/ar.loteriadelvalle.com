@@ -29,8 +29,8 @@ export const Onboarding = () => {
     }
   };
   return (
-    <View className={styles.container}>
-      <View className={styles.listContainer}>
+    <View className="flex-1 items-center justify-center">
+      <View className="flex-[3]">
         <FlatList
           data={onboarding}
           renderItem={({ item }) => <OnboardingItem item={item} />}
@@ -57,9 +57,4 @@ export const Onboarding = () => {
       />
     </View>
   );
-};
-
-const styles = {
-  container: `items-center flex-1 justify-center`,
-  listContainer: `flex-[3]`,
 };

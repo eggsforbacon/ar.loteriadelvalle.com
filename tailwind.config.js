@@ -4,6 +4,15 @@ module.exports = {
   presets: [require("nativewind/preset")],
   theme: {
     extend: {
+      keyframes: {
+        "render-bit": {
+          "0%, 40%, 100%": { opacity: 0 },
+          "60%, 80%": { opacity: 1 },
+        },
+      },
+      animation: {
+        "render-bit": "render-bit 5s ease-in-out infinite both",
+      },
       colors: {
         primary: {
           50: "#fff1f2",

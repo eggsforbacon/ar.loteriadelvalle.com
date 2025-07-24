@@ -4,6 +4,7 @@
     "slug": "ar-loteria-marabunta-co",
     "version": "1.0.0",
     "scheme": "ar.loteria.marabunta.co",
+    "newArchEnabled": true,
     "web": {
       "bundler": "metro",
       "output": "static",

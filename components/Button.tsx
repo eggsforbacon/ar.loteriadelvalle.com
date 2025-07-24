@@ -10,7 +10,7 @@ export const Button = forwardRef<View, ButtonProps>(({ title, ...touchableProps 
     <TouchableOpacity
       ref={ref}
       {...touchableProps}
-      className={`${styles.button} ${touchableProps.className}`}>
+      className={`items-center rounded-[28px] bg-primary-700 p-4 shadow-md ${touchableProps.className}`}>
       <Text
         style={{
           fontFamily: Platform.select({
@@ -18,14 +18,9 @@ export const Button = forwardRef<View, ButtonProps>(({ title, ...touchableProps 
             ios: "Poppins-Bold",
           }),
         }}
-        className={styles.buttonText}>
+        className="text-center text-lg text-white">
         {title}
       </Text>
     </TouchableOpacity>
   );
 });
-
-const styles = {
-  button: "items-center bg-primary-700 rounded-[28px] shadow-md p-4",
-  buttonText: "text-white text-lg text-center",
-};

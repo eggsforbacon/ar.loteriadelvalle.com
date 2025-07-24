@@ -59,14 +59,15 @@ const ResultsTable = () => {
           </React.Fragment>
         ))}
 
-        <DataTable.Pagination
-          className="self-center"
-          page={page}
-          numberOfPages={totalPages}
-          onPageChange={(newPage) => setPage(newPage)}
-          label={`${from + 1}-${to} de ${mockData.length}`}
-          showFastPaginationControls
-        />
+        {/*TODO: overhaul pagination and possibly tables*/}
+        {/*<DataTable.Pagination*/}
+        {/*  className="self-center"*/}
+        {/*  page={page}*/}
+        {/*  numberOfPages={totalPages}*/}
+        {/*  onPageChange={(newPage) => setPage(newPage)}*/}
+        {/*  label={`${from + 1}-${to} de ${mockData.length}`}*/}
+        {/*  showFastPaginationControls*/}
+        {/*/>*/}
       </DataTable>
     </View>
   );

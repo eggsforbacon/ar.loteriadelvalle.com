@@ -2,7 +2,7 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useEffect } from "react";
 import { ScrollView } from "react-native";
 
-import ResultsTable from "~/components/home/live/ResultsTable";
+// import ResultsTable from "~/components/home/live/ResultsTable";
 import TicketFormSection from "~/components/home/live/TicketFormSection";
 import VideoSection from "~/components/home/live/VideoSection";
 import { useVideoData } from "~/hooks/useVideoData";
@@ -30,7 +30,7 @@ export default function Live() {
     <ScrollView contentContainerClassName="bg-white gap-8" showsVerticalScrollIndicator={false}>
       <VideoSection videoData={videoData} />
       <TicketFormSection onSubmit={handleTicketSubmit} />
-      <ResultsTable />
+      {/*<ResultsTable />*/}
     </ScrollView>
   );
 }

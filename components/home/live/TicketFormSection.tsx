@@ -29,7 +29,7 @@ export default function TicketFormSection({ onSubmit }: Props) {
       <Text className="mb-6 text-center text-2xl font-bold text-primary-800">
         Consulta si tu número es ganador
       </Text>
-
+      {/*TODO: Make custom text fields to get rid of paper*/}
       <View className="mb-4 flex-row justify-between">
         <View className="mr-2 flex-1">
           <TextInput
@@ -37,7 +37,7 @@ export default function TicketFormSection({ onSubmit }: Props) {
             label="Fecha"
             value={ticket.date ? ticket.date.toLocaleDateString() : ""}
             onFocus={() => setShowDatePicker(true)}
-            left={<TextInput.Icon icon="calendar" color="#BB0014" />}
+            // left={<AntDesign icon="calendar" color="#BB0014" />}
             className="text-base"
             outlineStyle={{ borderColor: "#BB0014", borderWidth: 1, borderRadius: 8 }}
           />
@@ -50,7 +50,7 @@ export default function TicketFormSection({ onSubmit }: Props) {
             maxLength={4}
             value={ticket.draw}
             onChangeText={(text) => handleChange("draw", text.replace(/[^0-9]/g, ""))}
-            left={<TextInput.Icon icon="ticket-outline" color="#BB0014" />}
+            // left={<TextInput.Icon icon="ticket-outline" color="#BB0014" />}
             className="text-base"
             outlineStyle={{ borderColor: "#BB0014", borderWidth: 1, borderRadius: 8 }}
           />
@@ -66,7 +66,7 @@ export default function TicketFormSection({ onSubmit }: Props) {
             maxLength={4}
             value={ticket.number}
             onChangeText={(text) => handleChange("number", text.replace(/[^0-9]/g, ""))}
-            left={<TextInput.Icon icon="numeric" color="#BB0014" />}
+            // left={<TextInput.Icon icon="numeric" color="#BB0014" />}
             className="text-base"
             outlineStyle={{ borderColor: "#BB0014", borderWidth: 1, borderRadius: 8 }}
           />
@@ -79,7 +79,7 @@ export default function TicketFormSection({ onSubmit }: Props) {
             maxLength={3}
             value={ticket.series}
             onChangeText={(text) => handleChange("series", text.replace(/[^0-9]/g, ""))}
-            left={<TextInput.Icon icon="barcode" color="#BB0014" />}
+            // left={<TextInput.Icon icon="barcode" color="#BB0014" />}
             className="text-base"
             outlineStyle={{ borderColor: "#BB0014", borderWidth: 1, borderRadius: 8 }}
           />

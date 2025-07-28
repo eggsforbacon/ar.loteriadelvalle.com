@@ -91,17 +91,17 @@ export function getResultMessage(
 
   // 1) Revisar premios secos
   row.prizes
-    .filter(p => p.prize !== 'Premio Mayor')
+    .filter(p => p.prize.toUpperCase() !== 'PREMIO MAYOR')
     .forEach(p => {
       if (ticket.number === p.number && ticket.series === p.series) {
-        messages.push(`🎉 !Ganaste el premio seco, con serie!`);
+        messages.push(`🎉 ¡Ganaste el premio seco, con serie!`);
       } else if (ticket.number === p.number) {
-        messages.push(`🎉 !Ganaste el premio seco, sin serie!`);
+        messages.push(`🎉 ¡Ganaste el premio seco, sin serie!`);
       }
     });
 
   // 2) Revisar Premio Mayor con prioridades
-  const mayor = row.prizes.find(p => p.prize === 'Premio Mayor');
+  const mayor = row.prizes.find(p => p.prize.toUpperCase() === 'PREMIO MAYOR');
   if (mayor) {
     const matched = mayorChecks
       .filter(c => c.test(ticket.number, ticket.series, mayor))

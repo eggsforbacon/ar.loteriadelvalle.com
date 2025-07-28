@@ -26,7 +26,7 @@ const LogosSection: React.FC = () => {
             style={{
               width: (screenWidth - 48) / 2,
               height: ((screenWidth - 48) / 2) * 0.6,
-              marginBottom: 24,
+              marginBottom: 34,
             }}
           >
             <Image source={logo.image} style={{ width: '100%', height: '100%', resizeMode: 'contain' }} />

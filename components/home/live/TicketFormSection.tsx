@@ -1,12 +1,14 @@
 import DateTimePicker from "@react-native-community/datetimepicker";
-import React from "react";
+import Constants from "expo-constants";
+import React, { useState, useEffect } from "react";
 import { View, Alert, Text } from "react-native";
 import { TextInput, Button } from "react-native-paper";
 
-import { mockData } from "~/data/lottery";
 import { useTicketForm } from "~/hooks/useTicketForm";
 import { Ticket } from "~/types/ticket";
 import { getResultMessage } from "~/utils/prizes";
+
+const apiUrl = Constants.expoConfig?.extra?.apiUrl;
 
 interface Props {
   onSubmit: (ticket: Ticket) => void;
@@ -15,14 +17,43 @@ interface Props {
 export default function TicketFormSection({ onSubmit }: Props) {
   const { ticket, showDatePicker, setShowDatePicker, handleChange, handleDatePicked } =
     useTicketForm();
+  const [draws, setDraws] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDraws = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/latest-lottery-results`);
+        if (!response.ok) {
+          throw new Error("Error al obtener los resultados");
+        }
+        const data = await response.json();
+        setDraws(data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDraws();
+  }, []);
 
   const formatDateKey = (d: Date) => d.toISOString().split("T")[0];
 
   const onConsult = () => {
-    const msg = getResultMessage(ticket, mockData);
+    const msg = getResultMessage(ticket, draws);
     Alert.alert("Resultado de tu consulta", msg);
     onSubmit(ticket);
   };
+
+  if (isLoading) {
+    return <Text>Cargando...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error: {error}</Text>;
+  }
 
   return (
     <View className="px-4 pt-2">
@@ -96,7 +127,7 @@ export default function TicketFormSection({ onSubmit }: Props) {
             if (date) {
               handleDatePicked(date);
               const key = formatDateKey(date);
-              const found = mockData.find((r) => r.date === key);
+              const found = draws.find((r) => r.date === key);
               if (found) {
                 handleChange("draw", found.draw);
               }
@@ -109,7 +140,8 @@ export default function TicketFormSection({ onSubmit }: Props) {
         mode="contained"
         onPress={onConsult}
         className="mt-2 bg-primary-600 py-1"
-        style={{ borderRadius: 8 }}>
+        style={{ borderRadius: 8 }}
+      >
         Consultar
       </Button>
     </View>

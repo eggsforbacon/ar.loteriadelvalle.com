@@ -46,7 +46,7 @@ export default function Home() {
         <View className="flex-1 justify-between items-center">
           <View className="w-full items-center mt-8">
             <Image
-              source={require("../assets/logos/LOGO-gobernacion2.png")}
+              source={require("../assets/logos/LOGO-gobernacion.png")}
               className="w-4/5 h-20"
               resizeMode="contain"
             />
@@ -63,22 +63,22 @@ export default function Home() {
             <View className="w-full items-center relative">
               <TouchableOpacity
                 onPress={handleStart}
-                className="bg-red-600 w-5/6 h-32 rounded-xl p-4 z-10 absolute bottom-12 rounded-b-none justify-center"
+                className="bg-red-600 w-5/6 h-24 rounded-xl p-4 z-10 absolute bottom-28 justify-center"
               >
                 <Text
-                  className="text-white text-4xl text-center"
+                  className="text-white text-2xl text-center"
                   style={{ fontFamily: "Poppins_700Bold" }}
                 >
-                  Bienvenido
+                  Te damos la bienvenida
                 </Text>
                 <Text
-                  className="text-white text-2xl text-center mx-10"
+                  className="text-white text-xl text-center"
                   style={{ fontFamily: "Poppins_700Bold" }}
                 >
-                  a la aplicación de la Lotería del Valle
+                  Presiona aquí para ingresar
                 </Text>
               </TouchableOpacity>
-              <View className="bg-yellow-400 w-full h-12 absolute bottom-0" />
+              <View className="bg-red-600 w-full h-12 absolute bottom-0" />
             </View>
           </View>
         </View>

@@ -1,10 +1,13 @@
+import { FontAwesome5 } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 import React, { useState, useEffect, useRef } from "react";
-import { View, ActivityIndicator, TouchableOpacity, Linking } from "react-native";
+import { View, ActivityIndicator, Linking } from "react-native";
 import { Text } from "react-native-paper";
 import VideoPlayer from "react-native-video-player";
 
 import LiveTitle from "./LiveTitle";
+
+import { Button } from "~/components/Button";
 
 interface VideoData {
   videoUrl: string;
@@ -45,11 +48,12 @@ const VideoSection = ({ videoData }: VideoSectionProps) => {
         />
       </View>
       {videoData.isLive && videoData.permalink_url && (
-        <TouchableOpacity
-          className="mt-2.5 items-center rounded-lg bg-blue-500 p-2.5"
-          onPress={() => Linking.openURL(videoData.permalink_url!)}>
-          <Text style={{ color: "white", fontWeight: "bold" }}>Ver en Facebook</Text>
-        </TouchableOpacity>
+        <Button
+          title="Ver en Facebook"
+          className="mt-2.5 items-center !bg-blue-500"
+          icon={<FontAwesome5 name="facebook" color="white" size={20} />}
+          onPress={() => Linking.openURL(videoData.permalink_url!)}
+        />
       )}
     </View>
   );

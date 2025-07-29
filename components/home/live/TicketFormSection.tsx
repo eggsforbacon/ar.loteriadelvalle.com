@@ -1,8 +1,13 @@
+import { AntDesign } from "@expo/vector-icons";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import Ionicons from "@expo/vector-icons/Ionicons";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import React from "react";
 import { View, Alert, Text } from "react-native";
-import { TextInput, Button } from "react-native-paper";
 
+import { Button } from "~/components/Button";
+import { TextField } from "~/components/ui/TextField";
 import { mockData } from "~/data/lottery";
 import { useTicketForm } from "~/hooks/useTicketForm";
 import { Ticket } from "~/types/ticket";
@@ -29,59 +34,74 @@ export default function TicketFormSection({ onSubmit }: Props) {
       <Text className="mb-6 text-center text-2xl font-bold text-primary-800">
         Consulta si tu número es ganador
       </Text>
-      {/*TODO: Make custom text fields to get rid of paper*/}
       <View className="mb-4 flex-row justify-between">
         <View className="mr-2 flex-1">
-          <TextInput
-            mode="outlined"
+          <TextField
             label="Fecha"
             value={ticket.date ? ticket.date.toLocaleDateString() : ""}
             onFocus={() => setShowDatePicker(true)}
-            // left={<AntDesign icon="calendar" color="#BB0014" />}
-            className="text-base"
-            outlineStyle={{ borderColor: "#BB0014", borderWidth: 1, borderRadius: 8 }}
+            icon={
+              <AntDesign
+                name="calendar"
+                size={24}
+                color="#c2131f"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              />
+            }
           />
         </View>
         <View className="ml-2 flex-1">
-          <TextInput
-            mode="outlined"
+          <TextField
             label="Sorteo"
             keyboardType="numeric"
-            maxLength={4}
-            value={ticket.draw}
             onChangeText={(text) => handleChange("draw", text.replace(/[^0-9]/g, ""))}
-            // left={<TextInput.Icon icon="ticket-outline" color="#BB0014" />}
-            className="text-base"
-            outlineStyle={{ borderColor: "#BB0014", borderWidth: 1, borderRadius: 8 }}
+            maxLength={4}
+            icon={
+              <Ionicons
+                name="ticket-outline"
+                size={24}
+                color="#c2131f"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              />
+            }
+            value={ticket.draw}
           />
         </View>
       </View>
 
       <View className="mb-4 flex-row justify-between">
         <View className="mr-2 flex-1">
-          <TextInput
-            mode="outlined"
+          <TextField
             label="Número"
             keyboardType="numeric"
-            maxLength={4}
-            value={ticket.number}
             onChangeText={(text) => handleChange("number", text.replace(/[^0-9]/g, ""))}
-            // left={<TextInput.Icon icon="numeric" color="#BB0014" />}
-            className="text-base"
-            outlineStyle={{ borderColor: "#BB0014", borderWidth: 1, borderRadius: 8 }}
+            maxLength={4}
+            icon={
+              <MaterialCommunityIcons
+                name="numeric"
+                size={24}
+                color="#c2131f"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              />
+            }
+            value={ticket.number}
           />
         </View>
         <View className="ml-2 flex-1">
-          <TextInput
-            mode="outlined"
+          <TextField
             label="Serie"
             keyboardType="numeric"
-            maxLength={3}
-            value={ticket.series}
             onChangeText={(text) => handleChange("series", text.replace(/[^0-9]/g, ""))}
-            // left={<TextInput.Icon icon="barcode" color="#BB0014" />}
-            className="text-base"
-            outlineStyle={{ borderColor: "#BB0014", borderWidth: 1, borderRadius: 8 }}
+            maxLength={3}
+            icon={
+              <FontAwesome6
+                name="barcode"
+                size={20}
+                color="#c2131f"
+                className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
+              />
+            }
+            value={ticket.series}
           />
         </View>
       </View>
@@ -105,13 +125,7 @@ export default function TicketFormSection({ onSubmit }: Props) {
         />
       )}
 
-      <Button
-        mode="contained"
-        onPress={onConsult}
-        className="mt-2 bg-primary-600 py-1"
-        style={{ borderRadius: 8 }}>
-        Consultar
-      </Button>
+      <Button title="Consultar" onPress={onConsult} className="mt-2" />
     </View>
   );
 }

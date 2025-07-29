@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <bytecodeTargetLevel>
+      <module name="expo-dev-launcher-gradle-plugin" target="11" />
+      <module name="expo-dev-launcher-gradle-plugin.main" target="11" />
+      <module name="expo-dev-launcher-gradle-plugin.test" target="11" />
+    </bytecodeTargetLevel>
+  </component>
+</project>

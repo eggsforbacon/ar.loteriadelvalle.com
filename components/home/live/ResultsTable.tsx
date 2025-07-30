@@ -102,7 +102,7 @@ const ResultsTable = () => {
           page={page}
           numberOfPages={totalPages}
           onPageChange={(newPage) => setPage(newPage)}
-          label={`${from + 1}-${to} de ${draws.length} páginas`}
+          label={`${from + 1}-${to} de ${draws.length} entradas`}
         />
       </Table>
     </View>

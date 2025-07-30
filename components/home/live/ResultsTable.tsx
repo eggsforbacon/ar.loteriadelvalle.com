@@ -1,24 +1,48 @@
-"use client";
-
-import React, { useEffect, useState } from "react";
+import Constants from "expo-constants";
+import React, { useState, useEffect } from "react";
 import { View, Text } from "react-native";
 
 import { Button } from "~/components/Button";
 import { Cell, Header, Pagination, Row, Table, Title } from "~/components/ui/tables";
-import { mockData } from "~/data/lottery";
+
+const apiUrl = Constants.expoConfig?.extra?.apiUrl;
 
 const ResultsTable = () => {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const [page, setPage] = useState(0);
+  const [draws, setDraws] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const itemsPerPage = 4;
   const from = page * itemsPerPage;
-  const to = Math.min((page + 1) * itemsPerPage, mockData.length);
-  const totalPages = Math.ceil(mockData.length / itemsPerPage);
+  const to = Math.min((page + 1) * itemsPerPage, draws.length);
+  const totalPages = Math.ceil(draws.length / itemsPerPage);
 
   useEffect(() => {
-    console.log("", mockData.length);
-    console.log("Total pages:", totalPages);
-  }, [mockData, totalPages]);
+    const fetchDraws = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/latest-lottery-results`);
+        if (!response.ok) {
+          throw new Error("Error al obtener los resultados");
+        }
+        const data = await response.json();
+        setDraws(data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDraws();
+  }, []);
+
+  if (isLoading) {
+    return <Text>Cargando...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error: {error}</Text>;
+  }
 
   return (
     <View className="px-4 pt-6">
@@ -31,7 +55,7 @@ const ResultsTable = () => {
           <Title>Fecha</Title>
           <Title>Detalles</Title>
         </Header>
-        {mockData.slice(from, to).map((row) => (
+        {draws.slice(from, to).map((row) => (
           <React.Fragment key={row.id}>
             <Row>
               <Cell>
@@ -56,7 +80,7 @@ const ResultsTable = () => {
                     <Title>Serie</Title>
                     <Title>Premio</Title>
                   </Header>
-                  {row.prizes.map((p, idx) => (
+                  {row.prizes.map((p: any, idx: number) => (
                     <Row key={idx}>
                       <Cell>
                         <Text>{p.number}</Text>
@@ -77,8 +101,8 @@ const ResultsTable = () => {
         <Pagination
           page={page}
           numberOfPages={totalPages}
-          onPageChange={(newPage: number) => setPage(newPage)}
-          label={`${from + 1}-${to} de ${mockData.length} páginas`}
+          onPageChange={(newPage) => setPage(newPage)}
+          label={`${from + 1}-${to} de ${draws.length} páginas`}
         />
       </Table>
     </View>

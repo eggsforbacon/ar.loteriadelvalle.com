@@ -39,20 +39,20 @@ export default function Home() {
       <Container fullScreen>
         <Image
           source={require("../assets/images/home/background.png")}
-          className="absolute top-36 w-full h-full"
+          className="absolute top-36 h-full w-full"
           resizeMode="contain"
         />
 
-        <View className="flex-1 justify-between items-center">
-          <View className="w-full items-center mt-8">
+        <View className="flex-1 items-center justify-between">
+          <View className="mt-8 w-full items-center">
             <Image
-              source={require("../assets/logos/LOGO-gobernacion2.png")}
-              className="w-4/5 h-20"
+              source={require("../assets/logos/LOGO-gobernacion.png")}
+              className="h-20 w-4/5"
               resizeMode="contain"
             />
             <Image
               source={require("../assets/logos/LOGO-loteriadelvalle.png")}
-              className="w-4/5 h-40 mt-4"
+              className="mt-4 h-40 w-4/5"
               resizeMode="contain"
             />
           </View>
@@ -60,25 +60,22 @@ export default function Home() {
           <View className="flex-1" />
 
           <View className="w-full">
-            <View className="w-full items-center relative">
+            <View className="relative w-full items-center">
               <TouchableOpacity
                 onPress={handleStart}
-                className="bg-red-600 w-5/6 h-32 rounded-xl p-4 z-10 absolute bottom-12 rounded-b-none justify-center"
-              >
+                className="absolute bottom-28 z-10 h-24 w-5/6 justify-center rounded-xl bg-red-600 p-4">
                 <Text
-                  className="text-white text-4xl text-center"
-                  style={{ fontFamily: "Poppins_700Bold" }}
-                >
-                  Bienvenido
+                  className="text-center text-2xl text-white"
+                  style={{ fontFamily: "Poppins_700Bold" }}>
+                  Te damos la bienvenida
                 </Text>
                 <Text
-                  className="text-white text-2xl text-center mx-10"
-                  style={{ fontFamily: "Poppins_700Bold" }}
-                >
-                  a la aplicación de la Lotería del Valle
+                  className="text-center text-xl text-white"
+                  style={{ fontFamily: "Poppins_700Bold" }}>
+                  Presiona aquí para ingresar
                 </Text>
               </TouchableOpacity>
-              <View className="bg-yellow-400 w-full h-12 absolute bottom-0" />
+              <View className="absolute bottom-0 h-12 w-full bg-red-600" />
             </View>
           </View>
         </View>

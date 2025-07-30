@@ -3,15 +3,17 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import React from "react";
+import Constants from "expo-constants";
+import React, { useState, useEffect } from "react";
 import { View, Alert, Text } from "react-native";
 
 import { Button } from "~/components/Button";
 import { TextField } from "~/components/ui/TextField";
-import { mockData } from "~/data/lottery";
 import { useTicketForm } from "~/hooks/useTicketForm";
 import { Ticket } from "~/types/ticket";
 import { getResultMessage } from "~/utils/prizes";
+
+const apiUrl = Constants.expoConfig?.extra?.apiUrl;
 
 interface Props {
   onSubmit: (ticket: Ticket) => void;
@@ -20,14 +22,43 @@ interface Props {
 export default function TicketFormSection({ onSubmit }: Props) {
   const { ticket, showDatePicker, setShowDatePicker, handleChange, handleDatePicked } =
     useTicketForm();
+  const [draws, setDraws] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchDraws = async () => {
+      try {
+        const response = await fetch(`${apiUrl}/api/latest-lottery-results`);
+        if (!response.ok) {
+          throw new Error("Error al obtener los resultados");
+        }
+        const data = await response.json();
+        setDraws(data);
+      } catch (err) {
+        setError((err as Error).message);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchDraws();
+  }, []);
 
   const formatDateKey = (d: Date) => d.toISOString().split("T")[0];
 
   const onConsult = () => {
-    const msg = getResultMessage(ticket, mockData);
+    const msg = getResultMessage(ticket, draws);
     Alert.alert("Resultado de tu consulta", msg);
     onSubmit(ticket);
   };
+
+  if (isLoading) {
+    return <Text>Cargando...</Text>;
+  }
+
+  if (error) {
+    return <Text>Error: {error}</Text>;
+  }
 
   return (
     <View className="px-4 pt-2">
@@ -74,7 +105,6 @@ export default function TicketFormSection({ onSubmit }: Props) {
           <TextField
             label="Número"
             keyboardType="numeric"
-            onChangeText={(text) => handleChange("number", text.replace(/[^0-9]/g, ""))}
             maxLength={4}
             icon={
               <MaterialCommunityIcons
@@ -116,7 +146,7 @@ export default function TicketFormSection({ onSubmit }: Props) {
             if (date) {
               handleDatePicked(date);
               const key = formatDateKey(date);
-              const found = mockData.find((r) => r.date === key);
+              const found = draws.find((r) => r.date === key);
               if (found) {
                 handleChange("draw", found.draw);
               }

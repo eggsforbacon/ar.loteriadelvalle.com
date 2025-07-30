@@ -1,7 +1,10 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
-import { DataTable, Button } from "react-native-paper";
+"use client";
 
+import React, { useEffect, useState } from "react";
+import { View, Text } from "react-native";
+
+import { Button } from "~/components/Button";
+import { Cell, Header, Pagination, Row, Table, Title } from "~/components/ui/tables";
 import { mockData } from "~/data/lottery";
 
 const ResultsTable = () => {
@@ -12,63 +15,72 @@ const ResultsTable = () => {
   const to = Math.min((page + 1) * itemsPerPage, mockData.length);
   const totalPages = Math.ceil(mockData.length / itemsPerPage);
 
+  useEffect(() => {
+    console.log("", mockData.length);
+    console.log("Total pages:", totalPages);
+  }, [mockData, totalPages]);
+
   return (
     <View className="px-4 pt-6">
       <Text className="mb-4 text-center text-2xl font-bold text-primary-800">
         Histórico de resultados
       </Text>
-      <DataTable className="gap-2">
-        <DataTable.Header>
-          <DataTable.Title>Sorteo</DataTable.Title>
-          <DataTable.Title>Fecha</DataTable.Title>
-          <DataTable.Title numeric>Detalles</DataTable.Title>
-        </DataTable.Header>
-
+      <Table>
+        <Header>
+          <Title>Sorteo</Title>
+          <Title>Fecha</Title>
+          <Title>Detalles</Title>
+        </Header>
         {mockData.slice(from, to).map((row) => (
           <React.Fragment key={row.id}>
-            <DataTable.Row>
-              <DataTable.Cell>{row.draw}</DataTable.Cell>
-              <DataTable.Cell>{row.date}</DataTable.Cell>
-              <DataTable.Cell numeric>
+            <Row>
+              <Cell>
+                <Text>{row.draw}</Text>
+              </Cell>
+              <Cell>
+                <Text>{row.date}</Text>
+              </Cell>
+              <Cell>
                 <Button
+                  title={expandedId === row.id ? "Ocultar" : "Mostrar"}
                   compact
-                  onPress={() => setExpandedId(expandedId === row.id ? null : row.id)}>
-                  {expandedId === row.id ? "Ocultar" : "Mostrar"}
-                </Button>
-              </DataTable.Cell>
-            </DataTable.Row>
-
+                  onPress={() => setExpandedId(expandedId === row.id ? null : row.id)}
+                />
+              </Cell>
+            </Row>
             {expandedId === row.id && (
-              <View className="rounded-[10px] bg-[#f5f5f5]">
-                <DataTable className="gap-2">
-                  <DataTable.Header>
-                    <DataTable.Title style={{ flex: 1 }}>Número</DataTable.Title>
-                    <DataTable.Title style={{ flex: 1 }}>Serie</DataTable.Title>
-                    <DataTable.Title style={{ flex: 2 }}>Premio</DataTable.Title>
-                  </DataTable.Header>
+              <View className="mb-8 rounded-xl bg-primary-50">
+                <Table separatorClassName="bg-primary-100">
+                  <Header>
+                    <Title>Número</Title>
+                    <Title>Serie</Title>
+                    <Title>Premio</Title>
+                  </Header>
                   {row.prizes.map((p, idx) => (
-                    <DataTable.Row key={idx}>
-                      <DataTable.Cell style={{ flex: 1 }}>{p.number}</DataTable.Cell>
-                      <DataTable.Cell style={{ flex: 1 }}>{p.series}</DataTable.Cell>
-                      <DataTable.Cell style={{ flex: 2 }}>{p.prize}</DataTable.Cell>
-                    </DataTable.Row>
+                    <Row key={idx}>
+                      <Cell>
+                        <Text>{p.number}</Text>
+                      </Cell>
+                      <Cell>
+                        <Text>{p.series}</Text>
+                      </Cell>
+                      <Cell>
+                        <Text>{p.prize}</Text>
+                      </Cell>
+                    </Row>
                   ))}
-                </DataTable>
+                </Table>
               </View>
             )}
           </React.Fragment>
         ))}
-
-        {/*TODO: overhaul pagination and possibly tables*/}
-        {/*<DataTable.Pagination*/}
-        {/*  className="self-center"*/}
-        {/*  page={page}*/}
-        {/*  numberOfPages={totalPages}*/}
-        {/*  onPageChange={(newPage) => setPage(newPage)}*/}
-        {/*  label={`${from + 1}-${to} de ${mockData.length}`}*/}
-        {/*  showFastPaginationControls*/}
-        {/*/>*/}
-      </DataTable>
+        <Pagination
+          page={page}
+          numberOfPages={totalPages}
+          onPageChange={(newPage: number) => setPage(newPage)}
+          label={`${from + 1}-${to} de ${mockData.length} páginas`}
+        />
+      </Table>
     </View>
   );
 };

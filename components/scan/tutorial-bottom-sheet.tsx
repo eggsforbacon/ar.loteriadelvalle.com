@@ -30,7 +30,7 @@ const TutorialBottomSheet = forwardRef<BottomSheetModal, _Props>((_, modalRef) =
               className={`flex flex-1 flex-row items-center justify-center overflow-hidden rounded-l-full ${mode === "security" && "bg-primary-600"}`}>
               <Text
                 className={`text-lg ${mode === "security" ? "font-bold text-white" : "text-primary-600"}`}>
-                Medidas de Seguridad
+                Medidas de seguridad
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
@@ -41,7 +41,7 @@ const TutorialBottomSheet = forwardRef<BottomSheetModal, _Props>((_, modalRef) =
               className={`flex flex-1 flex-row items-center justify-center overflow-hidden rounded-r-full ${mode === "ar" && "bg-primary-600"}`}>
               <Text
                 className={`text-lg ${mode === "ar" ? "font-bold text-white" : "text-primary-600"}`}>
-                Experiencia AR
+                Realidad aumentada
               </Text>
             </TouchableOpacity>
           </View>

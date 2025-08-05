@@ -15,14 +15,14 @@ export default [
       "¿Estás en la calle y tu billete en casa? Revisa tus billetes comprados desde la app, ¡con tranquilidad!*",
     image: require("./../assets/images/onboarding/2.png"),
     liability:
-      "*La presentación de billetes digitales no es una forma válida para reclamar tu premio. Para más información, visita ",
+      "*La presentación de billetes digitales no es una forma válida para reclamar tu premio. Haz click aquí para concoer más",
     liabilityUrl: "https://benevalle.gov.co/preguntas-frecuentes",
   },
   {
     id: "3",
-    title: "Resultados en Vivo",
+    title: "Resultados en vivo",
     description:
-      "Disfruta de nuestra transmisión en vivo, ahora desde cualquier lugar. ¡Revive los momentos destacados!",
+      "En esta pantalla verás nuestras novedades con realidad aumentada. También encontrarás una guía para asegurarte de la legalidad de tu billete, ¡y así jugarle legal a la salud del Valle!",
     image: require("./../assets/images/onboarding/3.png"),
   },
   /* {

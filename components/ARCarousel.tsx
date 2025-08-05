@@ -32,7 +32,7 @@ export const ARCarousel = ({
     {
       title: "Cambia de color al frotar",
       description:
-        "Frota el círculo rosado con tu dedo. Verás al círculo de color desaparecer si tu billete es legal.",
+        "Frota el círculo rosado con tu dedo. Si tu billete es legal, verás el círculo de color desaparecer.",
       uris: [
         require("./../assets/images/ar/security/Friction_OFF.png"),
         require("./../assets/images/ar/security/Friction_ON.png"),
@@ -41,7 +41,7 @@ export const ARCarousel = ({
     {
       title: "Raspa con una moneda",
       description:
-        "Con una moneda raspa el último círculo. Cambiará de color si tu billete es legal.",
+        "Raspa con una moneda el último círculo. Cambiará de color si tu billete es legal.",
       uris: [
         require("./../assets/images/ar/security/Coin_OFF.png"),
         require("./../assets/images/ar/security/Coin_ON.png"),

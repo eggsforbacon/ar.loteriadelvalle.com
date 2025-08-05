@@ -47,14 +47,12 @@ const VideoSection = ({ videoData }: VideoSectionProps) => {
           paused={isPaused}
         />
       </View>
-      {videoData.isLive && videoData.permalink_url && (
-        <Button
-          title="Ver en Facebook"
-          className="mt-2.5 items-center !bg-blue-500"
-          icon={<FontAwesome5 name="facebook" color="white" size={20} />}
-          onPress={() => Linking.openURL(videoData.permalink_url!)}
-        />
-      )}
+      <Button
+        title="Ver en Facebook"
+        className="mt-2.5 items-center !bg-blue-500"
+        icon={<FontAwesome5 name="facebook" color="white" size={20} />}
+        onPress={() => Linking.openURL(videoData.permalink_url!)}
+      />
     </View>
   );
 };

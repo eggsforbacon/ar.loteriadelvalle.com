@@ -21,7 +21,7 @@ export const Logos: Logo[] = [
     url: "https://loteriadelvalle.com/",
   },
   {
-    id: "org4",
+    id: "juegolegal",
     image: require("../assets/logos/LOGO-juegolegal.png"),
     // url: undefined
   },

@@ -1,11 +1,16 @@
-import React, { useState, useRef } from "react";
-import { View, FlatList, Animated } from "react-native";
-import { OnboardingItem } from "./OnboardingItem";
-import { NavigationBar } from "~/components/NavigationBar";
-import onboarding from "~/data/onboarding";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useRouter } from "expo-router";
-import { registerForPushNotificationsAsync, requestCameraPermissionsAsync } from "~/contexts/AppContext";
+import React, { useState, useRef } from "react";
+import { View, FlatList, Animated, Image } from "react-native";
+
+import { OnboardingItem } from "./OnboardingItem";
+
+import { NavigationBar } from "~/components/NavigationBar";
+import {
+  registerForPushNotificationsAsync,
+  requestCameraPermissionsAsync,
+} from "~/contexts/AppContext";
+import onboarding from "~/data/onboarding";
 
 export const Onboarding = () => {
   const router = useRouter();
@@ -30,12 +35,12 @@ export const Onboarding = () => {
         break;
     }
   };
-  
+
   const completeOnboarding = async () => {
     try {
       await AsyncStorage.setItem("hasVisited", "true");
-      registerForPushNotificationsAsync();
-      requestCameraPermissionsAsync();
+      await registerForPushNotificationsAsync();
+      await requestCameraPermissionsAsync();
       router.replace("/feed");
     } catch (error) {
       console.error("Error al guardar en AsyncStorage:", error);
@@ -44,7 +49,19 @@ export const Onboarding = () => {
 
   return (
     <View className="flex-1 items-center justify-center">
-      <View className="flex-[3]">
+      <View className="w-full flex-row items-center justify-center">
+        <Image
+          source={require("../assets/logos/LOGO-gobernacion.png")}
+          className="h-12 w-44"
+          resizeMode="contain"
+        />
+        <Image
+          source={require("../assets/logos/LOGO-loteriadelvalle.png")}
+          className="mt-4 h-24 w-40"
+          resizeMode="contain"
+        />
+      </View>
+      <View className="flex-[2]">
         <FlatList
           data={onboarding}
           renderItem={({ item }) => <OnboardingItem item={item} />}

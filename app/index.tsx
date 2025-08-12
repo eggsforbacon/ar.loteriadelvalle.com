@@ -46,13 +46,8 @@ export default function Home() {
         <View className="flex-1 items-center justify-between">
           <View className="mt-8 w-full items-center">
             <Image
-              source={require("../assets/logos/LOGO-gobernacion.png")}
-              className="h-20 w-4/5"
-              resizeMode="contain"
-            />
-            <Image
-              source={require("../assets/logos/LOGO-loteriadelvalle.png")}
-              className="mt-4 h-40 w-4/5"
+              source={require("../assets/logos/logos_loteria_all.png")}
+              className="h-52 w-4/5"
               resizeMode="contain"
             />
           </View>

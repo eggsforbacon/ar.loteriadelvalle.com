@@ -1,7 +1,6 @@
 import React from "react";
-import { SafeAreaView, ScrollView } from "react-native";
+import { Image, SafeAreaView, ScrollView, View } from "react-native";
 
-import LogosSection from "~/components/LogosSection";
 import SocialSection from "~/components/SocialMedia";
 import LatestWinnerSection from "~/components/home/feed/LatestWinnerSection";
 import NewsCarousel from "~/components/home/feed/NewsCarousel";
@@ -15,7 +14,14 @@ export default function Feed() {
         <NextDrawCountdown />
         <NewsCarousel />
         <SocialSection />
-        <LogosSection />
+        {/*<LogosSection />*/}
+        <View className="flex items-center justify-center">
+          <Image
+            source={require("../../assets/logos/logos_loteria_all.png")}
+            className="h-52 w-96"
+            resizeMode="contain"
+          />
+        </View>
       </ScrollView>
     </SafeAreaView>
   );

@@ -5,6 +5,9 @@ import { Ticket } from "~/types/wallet";
 
 const TicketView = ({ raffle, number, fractions }: Ticket) => {
   return (
+    // <View className="relative flex-row items-center rounded-xl bg-white p-4 shadow-lg">
+    //
+    // </View>
     <TouchableOpacity
       onPress={() => {
         router.push(`/(wallet)/${number}`);

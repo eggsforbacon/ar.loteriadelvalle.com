@@ -70,26 +70,26 @@ export default function Header({
       </Pressable>
 
       <View className="flex-row">
-        {onBellPress && (
-          <Pressable onPress={handleBellPress} style={{ marginHorizontal: 8 }}>
-            <Animated.View style={bellStyle}>
-              <Ionicons name="notifications-outline" size={24} color="#fff" />
-            </Animated.View>
-            {unreadCount > 0 && (
-              <View
-                style={{
-                  position: "absolute",
-                  top: -2,
-                  right: -2,
-                  width: 8,
-                  height: 8,
-                  borderRadius: 4,
-                  backgroundColor: "white",
-                }}
-              />
-            )}
-          </Pressable>
-        )}
+        {/*{onBellPress && (*/}
+        {/*  <Pressable onPress={handleBellPress} style={{ marginHorizontal: 8 }}>*/}
+        {/*    <Animated.View style={bellStyle}>*/}
+        {/*      <Ionicons name="notifications-outline" size={24} color="#fff" />*/}
+        {/*    </Animated.View>*/}
+        {/*    {unreadCount > 0 && (*/}
+        {/*      <View*/}
+        {/*        style={{*/}
+        {/*          position: "absolute",*/}
+        {/*          top: -2,*/}
+        {/*          right: -2,*/}
+        {/*          width: 8,*/}
+        {/*          height: 8,*/}
+        {/*          borderRadius: 4,*/}
+        {/*          backgroundColor: "white",*/}
+        {/*        }}*/}
+        {/*      />*/}
+        {/*    )}*/}
+        {/*  </Pressable>*/}
+        {/*)}*/}
         {onRefresh && (
           <Pressable onPress={handleRefresh} style={{ marginHorizontal: 8 }}>
             <Animated.View style={spinStyle}>

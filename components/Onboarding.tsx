@@ -51,13 +51,8 @@ export const Onboarding = () => {
     <View className="flex-1 items-center justify-center">
       <View className="w-full flex-row items-center justify-center">
         <Image
-          source={require("../assets/logos/LOGO-gobernacion.png")}
-          className="h-12 w-44"
-          resizeMode="contain"
-        />
-        <Image
-          source={require("../assets/logos/LOGO-loteriadelvalle.png")}
-          className="mt-4 h-24 w-40"
+          source={require("../assets/logos/logos_loteria_all.png")}
+          className="h-52 w-96"
           resizeMode="contain"
         />
       </View>

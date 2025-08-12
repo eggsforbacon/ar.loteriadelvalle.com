@@ -1,6 +1,8 @@
 "use client";
 
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
+import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import { router } from "expo-router";
@@ -56,8 +58,8 @@ export default function NewTicket() {
               setNewNumber(val);
             }}
             icon={
-              <AntDesign
-                name="calendar"
+              <MaterialCommunityIcons
+                name="numeric"
                 size={24}
                 color="#c2131f"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -75,8 +77,8 @@ export default function NewTicket() {
               setNewRaffle(val);
             }}
             icon={
-              <AntDesign
-                name="calendar"
+              <Ionicons
+                name="ticket-outline"
                 size={24}
                 color="#c2131f"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
@@ -94,9 +96,9 @@ export default function NewTicket() {
               setNewSeries(val);
             }}
             icon={
-              <AntDesign
-                name="calendar"
-                size={24}
+              <FontAwesome6
+                name="barcode"
+                size={20}
                 color="#c2131f"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               />

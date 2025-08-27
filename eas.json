@@ -15,6 +15,9 @@
       "android": {
         "image": "latest"
       },
+      "ios": {
+        "image": "latest"
+      },
       "autoIncrement": true
     },
     "development-simulator": {

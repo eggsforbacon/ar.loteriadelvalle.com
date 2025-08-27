@@ -7,6 +7,7 @@ import React, { useEffect, useState } from "react";
 import { useColorScheme, View, Image } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { PaperProvider } from "react-native-paper";
+import { SafeAreaProvider } from "react-native-safe-area-context";
 
 import { lightTheme, darkTheme } from "./theme";
 
@@ -64,15 +65,17 @@ export default function Layout() {
   }
 
   return (
-    <AppProvider>
-      <GestureHandlerRootView style={{ flex: 1 }}>
-        <BottomSheetModalProvider>
-          <PaperProvider theme={theme}>
-            <LayoutContent hasVisited={hasVisited} />
-          </PaperProvider>
-        </BottomSheetModalProvider>
-      </GestureHandlerRootView>
-    </AppProvider>
+    <SafeAreaProvider>
+      <AppProvider>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+          <BottomSheetModalProvider>
+            <PaperProvider theme={theme}>
+              <LayoutContent hasVisited={hasVisited} />
+            </PaperProvider>
+          </BottomSheetModalProvider>
+        </GestureHandlerRootView>
+      </AppProvider>
+    </SafeAreaProvider>
   );
 }
 

@@ -48,7 +48,7 @@ export default function LatestWinnerSection() {
 
   return (
     <TicketContainer className="z-10 mx-4 mt-8 p-4 pb-8">
-      <Text className="text-center text-base font-bold text-black">Último número ganador</Text>
+      <Text className="text-center text-base font-bold text-black">Último número ganador del {mainPrize.prize}</Text>
       <Text className="my-4 text-center text-6xl font-bold text-primary-600">
         {mainPrize.number}
       </Text>
@@ -65,10 +65,10 @@ export default function LatestWinnerSection() {
           <Text className="font-semibold text-neutral-700">Fecha:</Text>
           <Text className="font-medium text-neutral-600">{latestDraw.date}</Text>
         </View>
-        <View className="items-center">
+        {/* <View className="items-center">
           <Text className="font-semibold text-neutral-700">Premio:</Text>
           <Text className="font-medium text-neutral-600">{mainPrize.prize}</Text>
-        </View>
+        </View> */}
       </View>
       <TouchableOpacity
         className="absolute -bottom-5 self-center rounded-full border-4 border-white bg-primary-600 px-6 py-2"

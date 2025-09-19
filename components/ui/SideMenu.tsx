@@ -166,7 +166,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ visible, onClose }) => {
                 <Text className="text-lg font-semibold text-white">Consulta si ganaste</Text>
               </Animated.View>
             </Pressable>
-            <Pressable
+            {/* <Pressable
               className="items-center rounded-lg bg-red-600 py-4"
               onPress={() => {
                 onClose();
@@ -177,7 +177,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ visible, onClose }) => {
               <Animated.View style={buyButtonAnimation.animatedStyle}>
                 <Text className="text-lg font-semibold text-white">Compra tu billete</Text>
               </Animated.View>
-            </Pressable>
+            </Pressable> */}
           </View>
         </Animated.View>
       </PanGestureHandler>

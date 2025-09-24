@@ -34,7 +34,7 @@ export default function FlipUnit({ value }: FlipUnitProps) {
   }));
 
   return (
-    <View className="flex-1">
+    <View className="flex-1 overflow-hidden">
       <Animated.View
         className="flex-1 items-center justify-center rounded-lg bg-accent-400"
         style={[styles.card, style]}>

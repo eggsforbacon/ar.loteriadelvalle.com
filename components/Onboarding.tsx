@@ -52,7 +52,7 @@ export const Onboarding = () => {
       <View className="w-full flex-row items-center justify-center">
         <Image
           source={require("../assets/logos/logos_loteria_all.png")}
-          className="h-52 w-96"
+          className="h-52 w-96 mt-6"
           resizeMode="contain"
         />
       </View>

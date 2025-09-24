@@ -1,6 +1,7 @@
 import Ionicons from "@expo/vector-icons/Ionicons";
 import React from "react";
 import { View, Pressable } from "react-native";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 import Animated, {
   useAnimatedStyle,
   withRepeat,
@@ -27,6 +28,7 @@ export default function Header({
   rotate,
   bellScale,
 }: HeaderProps) {
+  const insets = useSafeAreaInsets();
   const unreadCount = useNotificationsStore((s) => s.notifications.length);
 
   const spinStyle = useAnimatedStyle(() => ({
@@ -61,8 +63,13 @@ export default function Header({
 
   return (
     <View
-      className="flex-row items-center justify-between px-4 py-4"
-      style={{ backgroundColor: "#E21826" }}>
+      className="flex-row items-center justify-between px-4"
+      style={{
+        backgroundColor: "#E21826",
+        paddingTop: insets.top + 16,
+        paddingBottom: 16,
+      }}
+    >
       <Pressable onPress={onMenuPress} className="px-2">
         <Animated.View>
           <Ionicons name="menu" size={24} color="#fff" />

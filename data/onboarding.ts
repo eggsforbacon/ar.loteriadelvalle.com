@@ -15,7 +15,7 @@ export default [
       "¿Estás en la calle y tu billete en casa? Revisa tus billetes comprados desde la app, ¡con tranquilidad!*",
     image: require("./../assets/images/onboarding/2.png"),
     liability:
-      "*La presentación de billetes digitales no es una forma válida para reclamar tu premio. Haz click aquí para concoer más",
+      "*La presentación de billetes digitales no es una forma válida para reclamar tu premio. Haz click aquí para conocer más",
     liabilityUrl: "https://benevalle.gov.co/preguntas-frecuentes",
   },
   {

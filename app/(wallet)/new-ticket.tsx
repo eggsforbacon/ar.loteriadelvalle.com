@@ -5,18 +5,40 @@ import FontAwesome6 from "@expo/vector-icons/FontAwesome6";
 import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import Constants from "expo-constants";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { StyleSheet, View, Text, ScrollView, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  View,
+  Text,
+  ScrollView,
+  TouchableOpacity,
+  ActivityIndicator,
+  Alert,
+} from "react-native";
 import { MultiSelect } from "react-native-element-dropdown";
+import Modal from "react-native-modal";
 import colors from "tailwindcss/colors";
 
 import { Button } from "~/components/Button";
 import { TextField } from "~/components/ui/TextField";
 import { useWalletStore } from "~/store/wallet";
+import { getResultMessage } from "~/utils/prizes"; // Importamos la lógica de verificación
+
+// Obtenemos la URL de la API desde la configuración de Expo
+const apiUrl = Constants.expoConfig?.extra?.apiUrl;
 
 export default function NewTicket() {
   const [showDatePicker, setShowDatePicker] = useState<boolean>(false);
+  // --- NUEVOS ESTADOS ---
+  // Estado para controlar la visibilidad del modal de resultados
+  const [isModalVisible, setModalVisible] = useState(false);
+  // Estado para almacenar el mensaje que se mostrará en el modal
+  const [modalMessage, setModalMessage] = useState("");
+  // Estado para mostrar un indicador de carga mientras se verifica el billete
+  const [isLoading, setIsLoading] = useState(false);
+  // --- FIN DE NUEVOS ESTADOS ---
 
   const {
     newNumber: ticketNumber,
@@ -33,9 +55,59 @@ export default function NewTicket() {
     submitNewTicket,
   } = useWalletStore();
 
-  const handleSubmit = () => {
-    submitNewTicket();
-    router.push("/wallet");
+  // --- NUEVA LÓGICA ---
+  // Esta función se ejecuta cuando el usuario cierra el modal
+  const handleModalClose = () => {
+    setModalVisible(false); // Ocultamos el modal
+    submitNewTicket(); // Guardamos el billete en el store
+    router.push("/wallet"); // Navegamos de vuelta a la billetera
+  };
+
+  // Esta es la función principal que se ejecuta al presionar "Agregar"
+  const handleSubmit = async () => {
+    // Validamos que los campos necesarios no estén vacíos
+    if (!ticketNumber || !raffle || !series || fractions.length === 0) {
+      Alert.alert("Campos incompletos", "Por favor, completa todos los datos del billete.");
+      return;
+    }
+
+    setIsLoading(true); // Activamos el estado de carga
+
+    try {
+      // Hacemos la petición al backend para obtener los últimos resultados
+      const response = await fetch(`${apiUrl}/api/latest-lottery-results`);
+      if (!response.ok) {
+        throw new Error("No se pudo conectar con el servidor de resultados.");
+      }
+      const draws = await response.json();
+
+      // Creamos un objeto 'ticket' compatible con la función 'getResultMessage'
+      const ticketToCheck = {
+        draw: raffle,
+        number: ticketNumber,
+        series: series,
+        date: newDate,
+      };
+
+      // Usamos la función existente para obtener el mensaje del resultado
+      const msg = getResultMessage(ticketToCheck, draws);
+
+      // Guardamos el mensaje y hacemos visible el modal
+      setModalMessage(msg);
+      setModalVisible(true);
+    } catch (error) {
+      // Si hay un error, lo mostramos en una alerta
+      console.error("Error al verificar el billete:", error);
+      Alert.alert(
+        "Error de verificación",
+        "No pudimos verificar tu billete en este momento, pero lo guardaremos en tu billetera."
+      );
+      // Aunque falle la verificación, permitimos guardar el billete y navegar
+      submitNewTicket();
+      router.push("/wallet");
+    } finally {
+      setIsLoading(false); // Desactivamos el estado de carga
+    }
   };
 
   useEffect(() => {
@@ -55,7 +127,7 @@ export default function NewTicket() {
             maxLength={4}
             value={ticketNumber}
             onChangeText={(val) => {
-              setNewNumber(val);
+              setNewNumber(val.replace(/[^0-9]/g, ""));
             }}
             icon={
               <MaterialCommunityIcons
@@ -74,7 +146,7 @@ export default function NewTicket() {
             maxLength={4}
             value={raffle}
             onChangeText={(val) => {
-              setNewRaffle(val);
+              setNewRaffle(val.replace(/[^0-9]/g, ""));
             }}
             icon={
               <Ionicons
@@ -93,7 +165,7 @@ export default function NewTicket() {
             maxLength={3}
             value={series}
             onChangeText={(val) => {
-              setNewSeries(val);
+              setNewSeries(val.replace(/[^0-9]/g, ""));
             }}
             icon={
               <FontAwesome6
@@ -163,16 +235,40 @@ export default function NewTicket() {
             value={newDate}
             mode="date"
             display="calendar"
-            onChange={(event) => {
-              if (event.type === "set") {
-                setNewDate(new Date(event.nativeEvent.timestamp));
-              }
+            onChange={(_, date) => {
               setShowDatePicker(false);
+              if (date) {
+                setNewDate(date);
+              }
             }}
           />
         )}
       </View>
-      <Button title="Agregar" onPress={() => handleSubmit()} />
+      <Button
+        title={isLoading ? "Verificando..." : "Agregar"}
+        onPress={handleSubmit}
+        disabled={isLoading}
+      />
+
+      {/* --- NUEVO MODAL DE RESULTADOS --- */}
+      <Modal isVisible={isModalVisible} onBackdropPress={handleModalClose}>
+        <View className="rounded-lg bg-white p-6">
+          <Text className="mb-4 text-center text-xl font-bold text-primary-800">
+            Resultado de tu Billete
+          </Text>
+          <Text className="mb-4 text-center text-base text-neutral-700">{modalMessage}</Text>
+          <View className="mt-4 rounded-md bg-yellow-100 p-3">
+            <Text className="text-center text-xs text-yellow-800">
+              *La presentación de billetes digitales no es una forma válida para reclamar tu
+              premio. Debes presentar tu billete físico en un punto autorizado.
+            </Text>
+          </View>
+          <View className="mt-6">
+            <Button title="Entendido" onPress={handleModalClose} />
+          </View>
+        </View>
+      </Modal>
+      {/* --- FIN DE NUEVO MODAL --- */}
     </ScrollView>
   );
 }

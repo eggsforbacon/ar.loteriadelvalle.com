@@ -4,6 +4,7 @@ import React, { useCallback, useEffect } from "react";
 import { View, Pressable, Text, TouchableWithoutFeedback, Image, StyleSheet } from "react-native";
 import { PanGestureHandler } from "react-native-gesture-handler";
 import Animated, { useSharedValue, useAnimatedStyle, withTiming } from "react-native-reanimated";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 import VideoModal from "~/components/VideoModal";
 import { useLastRetransmission } from "~/hooks/useLastVideo";
@@ -17,6 +18,7 @@ interface SideMenuProps {
 
 const SideMenu: React.FC<SideMenuProps> = ({ visible, onClose }) => {
   const router = useRouter();
+  const insets = useSafeAreaInsets();
   const pathname = usePathname();
   const { videoData, isLoading, error } = useLastRetransmission();
   const { animateMenu, menuStyle, backdropStyle, gestureHandler } = useMenuAnimation(
@@ -108,7 +110,10 @@ const SideMenu: React.FC<SideMenuProps> = ({ visible, onClose }) => {
 
       <PanGestureHandler onGestureEvent={gestureHandler}>
         <Animated.View className="h-full w-[80%] bg-white shadow-lg" style={menuStyle}>
-          <View className="h-14 items-end justify-end pr-4">
+          <View
+            className="items-end justify-end pr-4"
+            style={{ paddingTop: insets.top, paddingBottom: 8 }}
+          >
             <Pressable onPress={onClose} className="p-2">
               <Ionicons name="close-outline" size={28} color="#333" />
             </Pressable>
@@ -161,7 +166,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ visible, onClose }) => {
                 <Text className="text-lg font-semibold text-white">Consulta si ganaste</Text>
               </Animated.View>
             </Pressable>
-            <Pressable
+            {/* <Pressable
               className="items-center rounded-lg bg-red-600 py-4"
               onPress={() => {
                 onClose();
@@ -172,7 +177,7 @@ const SideMenu: React.FC<SideMenuProps> = ({ visible, onClose }) => {
               <Animated.View style={buyButtonAnimation.animatedStyle}>
                 <Text className="text-lg font-semibold text-white">Compra tu billete</Text>
               </Animated.View>
-            </Pressable>
+            </Pressable> */}
           </View>
         </Animated.View>
       </PanGestureHandler>

@@ -46,8 +46,8 @@ export default function NewTicket() {
     <ScrollView
       contentContainerStyle={{ alignItems: "stretch", justifyContent: "space-between" }}
       contentContainerClassName="h-full flex w-full flex-col p-6 bg-white">
-      <View className="flex flex-col items-stretch justify-start gap-4">
-        <Text className="text-xl font-bold">Datos del billete</Text>
+      <View className="flex flex-col items-stretch justify-start gap-8 rounded-xl bg-primary-600 px-6 py-4">
+        <Text className="text-xl font-bold text-accent-400">Datos del billete</Text>
         <View className="flex flex-row items-stretch justify-start gap-2">
           <TextField
             label="Número"
@@ -61,7 +61,7 @@ export default function NewTicket() {
               <MaterialCommunityIcons
                 name="numeric"
                 size={24}
-                color="#c2131f"
+                color="#737373"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               />
             }
@@ -80,7 +80,7 @@ export default function NewTicket() {
               <Ionicons
                 name="ticket-outline"
                 size={24}
-                color="#c2131f"
+                color="#737373"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               />
             }
@@ -99,7 +99,7 @@ export default function NewTicket() {
               <FontAwesome6
                 name="barcode"
                 size={20}
-                color="#c2131f"
+                color="#737373"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               />
             }
@@ -116,7 +116,7 @@ export default function NewTicket() {
               <AntDesign
                 name="calendar"
                 size={24}
-                color="#c2131f"
+                color="#737373"
                 className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2"
               />
             }
@@ -124,7 +124,7 @@ export default function NewTicket() {
         </View>
         <View className="flex flex-row items-stretch justify-start gap-2">
           <View className="flex flex-1 flex-col items-stretch justify-start gap-2">
-            <Text className="text-xl font-bold">Fracciones</Text>
+            <Text className="text-xl font-bold text-accent-400">Fracciones</Text>
             <MultiSelect
               style={styles.dropdown}
               placeholderStyle={styles.placeholder}
@@ -149,7 +149,7 @@ export default function NewTicket() {
               }}
               renderSelectedItem={(item, unSelect) => (
                 <TouchableOpacity onPress={() => unSelect && unSelect(item)}>
-                  <View className="mb-2 mr-2 flex-row items-center justify-center gap-2 rounded border border-neutral-600 py-2 pl-4 pr-2">
+                  <View className="mb-2 mr-2 flex-row items-center justify-center gap-2 rounded border border-neutral-600 bg-white py-2 pl-4 pr-2">
                     <Text>{item.label}</Text>
                     <Ionicons color="#404040" name="remove" size={24} />
                   </View>
@@ -164,7 +164,6 @@ export default function NewTicket() {
             mode="date"
             display="calendar"
             onChange={(event) => {
-              console.info(event);
               if (event.type === "set") {
                 setNewDate(new Date(event.nativeEvent.timestamp));
               }
@@ -192,7 +191,8 @@ const styles = StyleSheet.create({
     height: 48,
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: "#c2131f",
+    backgroundColor: "white",
+    borderColor: "#737373",
     padding: 12,
   },
 });

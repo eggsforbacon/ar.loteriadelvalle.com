@@ -42,7 +42,6 @@ export default function Scan() {
   }, [isFocused]);
 
   const handleBarcodeScan = ({ data, type: _ }: BarcodeScanningResult) => {
-    console.info("BarcodeScan: ", data);
     const MATCH = "https://qrco.de/bg9PYP";
     if (data === MATCH) {
       setCodeDetected(true);
@@ -56,7 +55,6 @@ export default function Scan() {
       modalRef.current?.present();
       modalRef.current?.expand();
       toggleModal();
-      console.info("Modal toggled", modalRef.current);
     } else {
       console.error("Modal is null: ", modalRef);
     }

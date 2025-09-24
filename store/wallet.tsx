@@ -1,6 +1,7 @@
 import { create } from "zustand";
 
 import { mapParsedToTicket, Ticket } from "~/types/wallet";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 interface WalletState {
   newImageUrl: string;
@@ -83,7 +84,11 @@ export const useWalletStore = create<WalletState>((set, getState) => ({
     return getState().tickets.find((t) => t.number === number) || EmptyTicket;
   },
   deleteTicket: (number: string) =>
-    set((state) => ({
-      tickets: state.tickets.filter((t) => t.number !== number),
-    })),
+    set((state) => {
+      const filteredTix = state.tickets.filter((t) => t.number !== number);
+      AsyncStorage.setItem("tickets", JSON.stringify(filteredTix));
+      return {
+        tickets: filteredTix,
+      };
+    }),
 }));

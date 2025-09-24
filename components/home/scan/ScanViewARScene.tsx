@@ -1,22 +1,9 @@
-import {
-  Viro3DObject,
-  ViroAmbientLight,
-  ViroARImageMarker,
-  ViroARTrackingTargets,
-  ViroNode,
-} from "@reactvision/react-viro";
-import { useEffect, useState } from "react";
+import { Viro3DObject, ViroAmbientLight, ViroNode } from "@reactvision/react-viro";
 import { View } from "react-native";
 
 import { ViroARScene } from "~/node_modules/@reactvision/react-viro";
 
 export const ScanViewARScene = () => {
-  const [shown, setShown] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.info("Detected: ", shown);
-  }, [shown]);
-
   return (
     <View className="px-6">
       <ViroARScene>
@@ -33,19 +20,10 @@ export const ScanViewARScene = () => {
             source={require("./../../../assets/models/lotero.glb")}
             position={[0, 0, 0]}
             scale={[1, 1, 1]}
-            className={`transition-all duration-200 ease-in-out`}
+            className="transition-all duration-200 ease-in-out"
           />
         </ViroNode>
-        <ViroARImageMarker target="logo" onAnchorFound={() => setShown(true)}></ViroARImageMarker>
       </ViroARScene>
     </View>
   );
 };
-
-ViroARTrackingTargets.createTargets({
-  logo: {
-    source: require("./../../../assets/images/ar/code.png"),
-    orientation: "Up",
-    physicalWidth: 0.1,
-  },
-});

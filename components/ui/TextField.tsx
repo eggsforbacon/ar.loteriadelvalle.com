@@ -40,9 +40,9 @@ export const TextField = ({
 
   return (
     <View className="flex w-full flex-row items-center justify-center">
-      <View className="relative w-full rounded-lg border border-primary-700 py-4">
+      <View className="relative w-full rounded-lg border border-neutral-400 bg-white py-4">
         <Text
-          className={`absolute left-2 top-1/2 bg-white px-2 text-lg transition-all duration-200 ease-in-out ${active && "text-primary-600"} ${active || hasValue ? "-translate-y-6" : "text-neutral-700"}`}>
+          className={`absolute left-2 top-1/2 px-2 text-lg transition-all duration-200 ease-in-out ${active && "text-primary-600"} ${active || hasValue ? "-translate-y-10 text-accent-400" : "text-neutral-700"}`}>
           {label}
         </Text>
         <TextInput

@@ -12,12 +12,6 @@ import { View } from "react-native";
 import { ViroARScene } from "~/node_modules/@reactvision/react-viro";
 
 export const ScanViewARScene = () => {
-  const [shown, setShown] = useState<boolean>(false);
-
-  useEffect(() => {
-    console.info("Detected: ", shown);
-  }, [shown]);
-
   return (
     <View className="px-6">
       <ViroARScene>
@@ -42,16 +36,7 @@ export const ScanViewARScene = () => {
             height={0.4*1.3}
           />
         </ViroNode>
-        <ViroARImageMarker target="logo" onAnchorFound={() => setShown(true)}></ViroARImageMarker>
       </ViroARScene>
     </View>
   );
 };
-
-ViroARTrackingTargets.createTargets({
-  logo: {
-    source: require("./../../../assets/images/ar/code.png"),
-    orientation: "Up",
-    physicalWidth: 0.1,
-  },
-});

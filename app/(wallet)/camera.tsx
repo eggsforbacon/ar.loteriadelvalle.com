@@ -21,7 +21,6 @@ export default function WalletCamera() {
     if (cameraRef && cameraRef.current) {
       try {
         const data = await cameraRef.current.takePictureAsync();
-        console.info(data);
         setImage(data!.uri);
       } catch (error) {
         console.error(error);

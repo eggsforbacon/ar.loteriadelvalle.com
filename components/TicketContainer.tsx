@@ -1,17 +1,13 @@
 import React from "react";
 import { View, ViewProps } from "react-native";
-import { useTheme } from "react-native-paper";
 
 const RADIUS = 26;
-const DIAMETER = RADIUS * 2;
 const BORDER_WIDTH = 1.6;
 
 export function TicketContainer({ className, style, children, ...rest }: ViewProps) {
-  const theme = useTheme();
-
   return (
     <View
-      className={`relative mx-1 flex-1 overflow-visible rounded-lg border border-primary-600 bg-white ${className}`}
+      className={`relative mx-1 overflow-visible rounded-lg border border-primary-600 bg-white ${className}`}
       style={[{ borderWidth: BORDER_WIDTH }, style]}
       {...rest}>
       <View

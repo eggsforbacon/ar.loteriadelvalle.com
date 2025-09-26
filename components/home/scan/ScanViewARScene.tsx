@@ -3,6 +3,7 @@ import {
   ViroAmbientLight,
   ViroARImageMarker,
   ViroARTrackingTargets,
+  ViroImage,
   ViroNode,
 } from "@reactvision/react-viro";
 import { useEffect, useState } from "react";
@@ -27,13 +28,18 @@ export const ScanViewARScene = () => {
           rotation={[0, 0, 0]}
           dragType="FixedDistance"
           highAccuracyEvents
-          onDrag={() => {}}>
-          <Viro3DObject
+          onDrag={() => { }}>
+          {/* <Viro3DObject
             type="GLB"
             source={require("./../../../assets/models/lotero.glb")}
             position={[0, 0, 0]}
             scale={[1, 1, 1]}
             className={`transition-all duration-200 ease-in-out`}
+          /> */}
+          <ViroImage
+            source={require("../../../assets/images/ar/viro.png")}
+            width={0.22*1.3}
+            height={0.4*1.3}
           />
         </ViroNode>
         <ViroARImageMarker target="logo" onAnchorFound={() => setShown(true)}></ViroARImageMarker>
